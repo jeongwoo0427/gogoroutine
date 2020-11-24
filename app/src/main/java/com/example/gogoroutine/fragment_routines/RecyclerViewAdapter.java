@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<RecyclerViewAdapterDO> mData = new ArrayList<RecyclerViewAdapterDO>();
+
+
 
     /*테스트 전용 생성자 코드
     RecyclerViewAdapter(ArrayList<String> list)
@@ -33,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_routine_recyclerview,parent,false);
-        RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view);
+        RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view,context);
 
         return vh;
     }
@@ -81,11 +85,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //뷰 홀더를 오버라이드하여 위에서 아이템에 대한 객체들을 지정할 때 이 클래스를 사용하도록 함
 
         TextView tvName,tvStartTime;
+        ImageButton btnDialog;
 
-        public ViewHolder(@NonNull View itemView) {
+
+
+        public ViewHolder(@NonNull View itemView,final Context context) {
             super(itemView);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvStartTime = itemView.findViewById(R.id.item_tv_starttime);
+            btnDialog = itemView.findViewById(R.id.item_btn_dialog);
+
+
+
+            //각 아이템에 달린 ... 버튼을 클릭하게 되면 띄울 다이얼로그 지정
+            btnDialog.setOnClickListener(new ImageButton.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    FragmentRoutines_ItemDialog dialog = new FragmentRoutines_ItemDialog(context);
+
+                    dialog.showDialog();
+
+                }
+            });
+
 
 
         }

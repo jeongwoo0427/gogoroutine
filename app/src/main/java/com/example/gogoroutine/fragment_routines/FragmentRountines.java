@@ -27,10 +27,7 @@ public class FragmentRountines extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_routines,container,false);
-
-
-
+        View view = inflater.inflate(R.layout.fragment_routines, container, false);
 
         recyclerView = view.findViewById(R.id.routine_recyclerview);
 
@@ -39,17 +36,17 @@ public class FragmentRountines extends Fragment {
         return view;
     }
 
-    public void DisplayRoutineList(){
+    public void DisplayRoutineList() {
 
         dbOpenHelper = new DbOpenHelper(getContext());
         sqLiteDatabase = dbOpenHelper.getReadableDatabase();
         recyclerViewAdapter = new RecyclerViewAdapter();
 
-        String qry= "SELECT * FROM routine";
+        String qry = "SELECT * FROM routine";
 
-        Cursor cursor = sqLiteDatabase.rawQuery(qry,null);
+        Cursor cursor = sqLiteDatabase.rawQuery(qry, null);
 
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             //recyclerViewAdapter.addItem(1,"Morning",0,9,0,"0",0,0,0); 테스트용 코드
             recyclerViewAdapter.addItem(
                     cursor.getInt(0), //루틴번호
@@ -66,7 +63,7 @@ public class FragmentRountines extends Fragment {
 
         }
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
         recyclerView.setAdapter(recyclerViewAdapter);
 
