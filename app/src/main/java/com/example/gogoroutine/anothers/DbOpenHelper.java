@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 
 public class DbOpenHelper extends SQLiteOpenHelper {
 
+   //SQLite 접속을 위한 클래스
+
     final static String DB_NAME="gogoroutine.db";
     final static int DB_VERSION=21;
 
