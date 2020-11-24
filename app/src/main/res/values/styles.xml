@@ -1,0 +1,35 @@
+<resources>
+    <!-- Base application theme. -->
+
+
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorBackground">@color/colorLight</item>
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="android:textColorHint">@color/colorTextGray</item>
+
+
+    </style>
+
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/colorDarkBlue</item>
+
+    </style>
+
+    <style name="Widget.Button.Toggle" parent="android:Widget">
+        <item name="android:background">@drawable/selector_toggle_bg</item>
+    </style>
+
+    <style name="toggleButton" parent="Theme.AppCompat">
+        <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
+        <item name="android:textColor">@drawable/selector_toggle_text_color</item>
+    </style>
+
+
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorBackground">@color/colorDark</item>
+        <item name="android:textColor">@color/colorLight</item>
+        <item name="android:textColorHint">@color/colorTextGray</item>
+    </style>
+
+</resources>

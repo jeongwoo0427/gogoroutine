@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+
+    <FrameLayout
+        android:id="@+id/main_fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        android:layout_above="@id/main_btn_routines"
+        >
+
+
+    </FrameLayout>
+
+
+
+
+    <ImageButton
+        android:id="@+id/main_choose_btn_add_routine"
+        android:transitionName="routineTransition"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/botton_addroutine"
+        android:src="@drawable/ic_baseline_spellcheck_24"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:elevation="5dp"
+        />
+    <ImageButton
+        android:id="@+id/main_choose_btn_add_go"
+        android:transitionName="goTransition"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/botton_addgo"
+        android:src="@drawable/ic_baseline_format_align_center_24"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:elevation="5dp"
+        />
+
+    <ImageButton
+        android:id="@+id/main_btn_add"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/botton_bottomcenter"
+        android:src="@drawable/ic_add"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:elevation="5dp"
+
+
+
+        />
+
+
+    <ImageButton
+        android:id="@+id/main_btn_routines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/botton_bottomleft"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/main_btn_add"
+        android:src="@drawable/ic_baseline_done_24"
+        android:maxHeight="60dp"
+        android:padding="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="1dp"
+        android:onClick="onFragmentBtnClicked"
+        />
+
+
+    <ImageButton
+        android:id="@+id/main_btn_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/botton_bottomright"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/main_btn_add"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_baseline_person_24"
+        android:maxHeight="60dp"
+        android:padding="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="1dp"
+        android:onClick="onFragmentBtnClicked"
+        />
+
+
+</RelativeLayout>

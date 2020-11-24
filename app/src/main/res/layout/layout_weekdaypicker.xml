@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ToggleButton
+        android:id="@+id/t1"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:textOff="일"
+        android:textOn="일"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+    <ToggleButton
+        android:id="@+id/t2"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:textOff="월"
+        android:textOn="월"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+
+    <ToggleButton
+        android:id="@+id/t3"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:textOff="화"
+        android:textOn="화"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+
+    <ToggleButton
+        android:id="@+id/t4"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:textOff="수"
+        android:textOn="수"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+
+    <ToggleButton
+        android:id="@+id/t5"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:textOff="목"
+        android:textOn="목"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+
+    <ToggleButton
+        android:id="@+id/t6"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:textOff="금"
+        android:textOn="금"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+
+    <ToggleButton
+        android:id="@+id/t7"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:textOff="토"
+        android:textOn="토"
+        style="@style/toggleButton"
+        android:background="@drawable/selector_toggle_bg" />
+</LinearLayout>
