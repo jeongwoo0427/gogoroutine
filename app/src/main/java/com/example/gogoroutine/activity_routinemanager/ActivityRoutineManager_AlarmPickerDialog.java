@@ -1,9 +1,11 @@
-package com.example.gogoroutine;
+package com.example.gogoroutine.activity_routinemanager;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
 import android.widget.Button;
+
+import com.example.gogoroutine.R;
 
 //알람 선택시 띄울 다이얼로그를 정의하는 클래스
 public class ActivityRoutineManager_AlarmPickerDialog {

@@ -15,9 +15,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 import com.example.gogoroutine.fragment_routines.FragmentRountines;
 import com.example.gogoroutine.fragment_status.FragmentStatus;
 
@@ -116,7 +116,7 @@ public class ActivityMain extends AppCompatActivity {
 
             if(resultCode==CHOOSE_RESULT_ROUTINE){
                 //Toast.makeText(getApplicationContext(),"Routine",Toast.LENGTH_LONG).show(); //테스트코드
-                Intent intent = new Intent(ActivityMain.this,ActivityRoutineManager.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityRoutineManager.class);
 
                 startActivityForResult(intent,ROUTINEMANAGER_REQUEST_CODE);
 

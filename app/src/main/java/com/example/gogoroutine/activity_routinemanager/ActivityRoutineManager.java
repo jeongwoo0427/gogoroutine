@@ -1,4 +1,4 @@
-package com.example.gogoroutine;
+package com.example.gogoroutine.activity_routinemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import com.example.gogoroutine.R;
 import com.example.gogoroutine.others.DbOpenHelper;
 
 public class ActivityRoutineManager extends AppCompatActivity {

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:elevation="7dp"
+
+    >
+
+
+
+        <ImageView
+            android:id="@+id/item_routineshow_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:visibility="gone"
+            />
+
+
+        <TextView
+
+            android:layout_toRightOf="@id/item_routineshow_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_tv_name"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/colorDark"
+            android:text="침구류 정리"/>
+
+        <TextView
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/item_tv_name"
+            android:id="@+id/item_tv_time"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/colorTextGray"
+            android:text="2분"/>
+
+
+       <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_delete_24"
+
+                android:layout_alignParentRight="true"
+                android:visibility="invisible"
+                android:layout_centerVertical="true"/>
+
+
+
+
+
+
+</RelativeLayout>

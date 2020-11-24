@@ -8,10 +8,10 @@ import androidx.annotation.Nullable;
 
 public class DbOpenHelper extends SQLiteOpenHelper {
 
-   //SQLite 접속을 위한 클래스
+    //SQLite 접속을 위한 클래스
 
-    final static String DB_NAME="gogoroutine.db";
-    final static int DB_VERSION=21;
+    final static String DB_NAME = "gogoroutine.db";
+    final static int DB_VERSION = 21;
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -33,12 +33,11 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(qry);
 
-        qry ="INSERT INTO routine(name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES('아침루틴',0,9,0,'0',0,0,0)";
+        qry = "INSERT INTO routine(name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES('아침루틴',0,9,0,'0',0,0,0)";
         sqLiteDatabase.execSQL(qry);
 
-        qry ="CREATE TABLE go(" +
+        qry = "CREATE TABLE go(" +
                 "goNum INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "routineNum INTEGER," +
                 "name TEXT NOT NULL," +
                 "time TEXT NOT NULL," +
                 "entity TEXT NOT NULL," +
