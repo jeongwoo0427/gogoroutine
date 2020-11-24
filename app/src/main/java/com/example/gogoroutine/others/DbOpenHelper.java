@@ -1,4 +1,4 @@
-package com.example.gogoroutine.anothers;
+package com.example.gogoroutine.others;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

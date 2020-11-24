@@ -220,6 +220,7 @@
 
                     />
                 <Button
+                    android:id="@+id/routinemanager_btn_alarmsound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_edittext"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="450dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/alarmdialog_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알람음 선택"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:layout_marginTop="15dp"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarmdialog_tv_title"
+        android:layout_above="@id/alarmdialog_ll1"
+        />
+
+
+
+    <LinearLayout
+        android:id="@+id/alarmdialog_ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:id="@+id/alarmdialog_btn_cancel"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="완료"
+            android:id="@+id/alarmdialog_btn_ok"
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

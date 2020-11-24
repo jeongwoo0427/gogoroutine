@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,13 +16,7 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
-import com.example.gogoroutine.anothers.DbOpenHelper;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import com.example.gogoroutine.others.DbOpenHelper;
 
 public class ActivityRoutineManager extends AppCompatActivity {
 
@@ -31,7 +24,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
     ToggleButton t1,t2,t3,t4,t5,t6,t7;
     View daypicker;
     LinearLayout ll2,daypickerlayout;
-    Button btnStartTime,btnCancel,btnComplete;
+    Button btnStartTime,btnAlarmSound,btnCancel,btnComplete;
     EditText etName;
     ToggleButton tgIsSound, tgIsVibration;
 
@@ -93,8 +86,9 @@ public class ActivityRoutineManager extends AppCompatActivity {
         t6 = (ToggleButton)findViewById(R.id.t6);
         t7 = (ToggleButton)findViewById(R.id.t7);
         daypicker = (View)findViewById(R.id.daypicker);
-        btnStartTime = (Button)findViewById(R.id.routinemanager_btn_starttime);
 
+        btnStartTime = (Button)findViewById(R.id.routinemanager_btn_starttime);
+        btnAlarmSound = (Button)findViewById(R.id.routinemanager_btn_alarmsound);
 
         switchIsNotice = (Switch)findViewById(R.id.routinemanager_switch_isNotice);
         ll2 = (LinearLayout)findViewById(R.id.routinemanager_ll2);
@@ -223,6 +217,20 @@ public class ActivityRoutineManager extends AppCompatActivity {
             }
         });
 
+        btnAlarmSound.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ActivityRoutineManager_AlarmPickerDialog alarmDialog = new ActivityRoutineManager_AlarmPickerDialog(ActivityRoutineManager.this);
+
+                alarmDialog.showDialogForResult(btnAlarmSound);
+
+
+
+
+            }
+        });
+
         btnCancel.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -230,92 +238,93 @@ public class ActivityRoutineManager extends AppCompatActivity {
             }
         });
 
-        btnComplete.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //완료버튼 클릭시 실행
+        //btnComplete.setOnClickListener
+        {
+            btnComplete.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //완료버튼 클릭시 실행
 
-                //이름 입력 여부 확인
-                sRoutineName = etName.getText().toString().trim();
-                if(sRoutineName.equals("")){
+                    //이름 입력 여부 확인
+                    sRoutineName = etName.getText().toString().trim();
+                    if (sRoutineName.equals("")) {
 
-                    AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRoutineManager.this);
-                    alert.setTitle("주의");
-                    alert.setMessage("루틴 이름을 입력하세요.");
-                    alert.setPositiveButton("OK",null);
-                    alert.show();
-
-                    etName.requestFocus();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRoutineManager.this);
+                        alert.setTitle("주의");
+                        alert.setMessage("루틴 이름을 입력하세요.");
+                        alert.setPositiveButton("OK", null);
+                        alert.show();
 
 
-                }
+                        etName.requestFocus();
+                        return;
 
-                //알림여부 저장
-                iIsNoticeEnable = (switchIsNotice.isChecked())?1:0;
 
-                //선택 요일 저장
-                {
+                    }
+
+                    //알림여부 저장
+                    iIsNoticeEnable = (switchIsNotice.isChecked()) ? 1 : 0;
+
+                    //선택 요일 저장
+                    {
 
                         sSelectedWeeks = "";
 
-                    if (t1.isChecked()) {
-                        sSelectedWeeks = "1";
+                        if (t1.isChecked()) {
+                            sSelectedWeeks = "1";
+                        }
+                        if (t2.isChecked()) {
+                            sSelectedWeeks += "2";
+                        }
+                        if (t3.isChecked()) {
+                            sSelectedWeeks += "3";
+                        }
+                        if (t4.isChecked()) {
+                            sSelectedWeeks += "4";
+                        }
+                        if (t5.isChecked()) {
+                            sSelectedWeeks += "5";
+                        }
+                        if (t6.isChecked()) {
+                            sSelectedWeeks += "6";
+                        }
+                        if (t7.isChecked()) {
+                            sSelectedWeeks += "7";
+                        }
                     }
-                    if (t2.isChecked()) {
-                        sSelectedWeeks += "2";
-                    }
-                    if (t3.isChecked()) {
-                        sSelectedWeeks += "3";
-                    }
-                    if (t4.isChecked()) {
-                        sSelectedWeeks += "4";
-                    }
-                    if (t5.isChecked()) {
-                        sSelectedWeeks += "5";
-                    }
-                    if (t6.isChecked()) {
-                        sSelectedWeeks += "6";
-                    }
-                    if (t7.isChecked()) {
-                        sSelectedWeeks += "7";
-                    }
+
+                    //알람음 지정 필요
+
+
+                    //소리여부 저장
+                    iIsSound = (tgIsSound.isChecked()) ? 1 : 0;
+
+                    //진동여부 저장
+                    iIsSound = (tgIsVibration.isChecked()) ? 1 : 0;
+
+                    SQLiteDatabase database = new DbOpenHelper(ActivityRoutineManager.this).getWritableDatabase();
+
+                    String qry = "INSERT INTO routine(name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES('" +
+                            sRoutineName.trim() + "'," +
+                            iIsNoticeEnable + "," +
+                            startHour + "," +
+                            startMinute + ",'" +
+                            sSelectedWeeks + "'," +
+                            iAlamMode + "," +
+                            iIsSound + "," +
+                            iIsVibration +
+                            ")";
+
+                    database.execSQL(qry);
+
+                    setResult(RESULT_OK);
+                    finish();
+
                 }
 
-                //알람음 지정 필요
 
-
-
-                //소리여부 저장
-                iIsSound = (tgIsSound.isChecked())?1:0;
-
-                //진동여부 저장
-                iIsSound = (tgIsVibration.isChecked())?1:0;
-
-                SQLiteDatabase database = new DbOpenHelper(ActivityRoutineManager.this).getWritableDatabase();
-
-                String qry = "INSERT INTO routine(name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES('" +
-                        sRoutineName.trim()+"'," +
-                        iIsNoticeEnable+"," +
-                        startHour+"," +
-                        startMinute+",'" +
-                        sSelectedWeeks+"'," +
-                        iAlamMode+"," +
-                        iIsSound+"," +
-                        iIsVibration+
-                        ")";
-
-                database.execSQL(qry);
-
-                setResult(RESULT_OK);
-                finish();
-
-            }
-
-
-
-        });
-
-
+            });
+        }
 
     }
     private void setWholeWeeks(boolean b){
