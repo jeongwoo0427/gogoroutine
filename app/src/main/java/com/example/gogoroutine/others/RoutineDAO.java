@@ -14,12 +14,12 @@ public class RoutineDAO {
     SQLiteDatabase db;
     Cursor cursor;
 
-    public RoutineDAO(Context context){
+    public RoutineDAO(Context context) {
         this.context = context;
     }
 
 
-    public Cursor getRoutineList(){
+    public Cursor getRoutineList() {
         dbOpenHelper = new DbOpenHelper(context);
         db = dbOpenHelper.getReadableDatabase();
 
@@ -29,7 +29,34 @@ public class RoutineDAO {
 
     }
 
-    public String getRoutineName(int routineNum){
+
+    public RoutineDO getRoutineDetails(int routineNum) {
+        dbOpenHelper = new DbOpenHelper(context);
+        db = dbOpenHelper.getReadableDatabase();
+
+        String qry = "SELECT * FROM routine WHERE routineNum=" + routineNum;
+
+        cursor = db.rawQuery(qry, null);
+
+        cursor.moveToNext();
+
+        RoutineDO routineDO = new RoutineDO(
+                cursor.getInt(0), //루틴번호
+                cursor.getString(1), //루틴이름
+                cursor.getInt(2), //알림여부
+                cursor.getInt(3), //시작시각
+                cursor.getInt(4), //시작분
+                cursor.getString(5), //선택된요일
+                cursor.getInt(6), //알람음
+                cursor.getInt(7), //소리여부
+                cursor.getInt(8) //진동여부
+        );
+
+        return routineDO;
+    }
+
+
+    public String getRoutineName(int routineNum) {
         dbOpenHelper = new DbOpenHelper(context);
         db = dbOpenHelper.getReadableDatabase();
 
@@ -40,17 +67,8 @@ public class RoutineDAO {
         return cursor.getString(1);
     }
 
-    public void deleteRoutine(int routineNum){
-        dbOpenHelper = new DbOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
 
-        String qry = "DELETE FROM routine WHERE routineNum="+routineNum;
-
-        database.execSQL(qry);
-    }
-
-
-    public void insertNewRoutine(RoutineDO routineDO){
+    public void insertNewRoutine(RoutineDO routineDO) {
         dbOpenHelper = new DbOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
 
@@ -67,5 +85,34 @@ public class RoutineDAO {
 
         database.execSQL(qry);
     }
+
+    public void updateRoutine(RoutineDO routineDO) {
+        dbOpenHelper = new DbOpenHelper(context);
+        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
+
+        String qry = "UPDATE routine SET " +
+                "name = '"+routineDO.getName()+"', "+
+                "isNoticeEnable = "+routineDO.getIsAlamEnable()+", " +
+                "startHour = "+routineDO.getStartHour()+", " +
+                "startMinute ="+routineDO.getStartMinute()+", " +
+                "selectedWeeks = '"+routineDO.getSelectedWeeks()+"', " +
+                "alamMode = "+routineDO.getAlameMode()+", " +
+                "isSound = "+routineDO.getIsSound()+", " +
+                "isVibration = "+routineDO.getIsVibration()+" " +
+                " WHERE routineNum="+routineDO.getRoutineNum();
+
+        database.execSQL(qry);
+
+    }
+
+    public void deleteRoutine(int routineNum) {
+        dbOpenHelper = new DbOpenHelper(context);
+        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
+
+        String qry = "DELETE FROM routine WHERE routineNum=" + routineNum;
+
+        database.execSQL(qry);
+    }
+
 
 }

@@ -1,8 +1,10 @@
 package com.example.gogoroutine.fragment_routines;
 
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +21,7 @@ import com.example.gogoroutine.ActivityMain;
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 import com.example.gogoroutine.others.RoutineDAO;
+import com.example.gogoroutine.others.RoutineDO;
 
 
 public class FragmentRoutines_ItemDialog {
@@ -34,6 +37,7 @@ public class FragmentRoutines_ItemDialog {
     Context context;
 
     int iRoutineNum = 0;
+
 
     private final static int ROUTINEMANAGER_REQUEST_CODE = 2;
 
@@ -69,8 +73,8 @@ public class FragmentRoutines_ItemDialog {
         btnDup = (Button)dialog.findViewById(R.id.routinedialog_btn_dup);
         btnDelete = (Button)dialog.findViewById(R.id.routinedialog_btn_delete);
 
-
-        tvTitle.setText(routineDAO.getRoutineName(iRoutineNum));
+        final String sRoutineName = routineDAO.getRoutineName(iRoutineNum);
+        tvTitle.setText(sRoutineName);
 
         btnModify.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -78,6 +82,7 @@ public class FragmentRoutines_ItemDialog {
                 Intent intent = new Intent(context,ActivityRoutineManager.class);
 
                 intent.putExtra("mode",2);
+                intent.putExtra("num",iRoutineNum);
 
                 activityMain.startActivityForResult(intent,ROUTINEMANAGER_REQUEST_CODE);
 
@@ -91,6 +96,33 @@ public class FragmentRoutines_ItemDialog {
             @Override
             public void onClick(View view) {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setTitle(sRoutineName);
+                builder.setMessage("해당 루틴을 복제하시겠습니까? \n하위 할 일들도 복제됩니다.");
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.setPositiveButton("복제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        RoutineDO routineDO = routineDAO.getRoutineDetails(iRoutineNum);
+                        routineDAO.insertNewRoutine(routineDO);
+
+                        parent.DisplayRoutineList();
+
+                    }
+                });
+
+                builder.show();
+                dialog.dismiss();
+
+
             }
         });
 
@@ -98,9 +130,25 @@ public class FragmentRoutines_ItemDialog {
             @Override
             public void onClick(View view) {
 
-                routineDAO.deleteRoutine(iRoutineNum);
-                parent.DisplayRoutineList();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(sRoutineName);
+                builder.setMessage("해당 루틴을 정말로 삭제하시겠습니까?");
+                builder.setPositiveButton("삭제",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        routineDAO.deleteRoutine(iRoutineNum);
+                        parent.DisplayRoutineList();
+                    }
+                });
 
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.show();
                 dialog.dismiss();
 
             }
