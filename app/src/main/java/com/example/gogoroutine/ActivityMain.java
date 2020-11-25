@@ -18,21 +18,21 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
-import com.example.gogoroutine.fragment_routines.FragmentRountines;
+import com.example.gogoroutine.fragment_routines.FragmentRoutines;
 import com.example.gogoroutine.fragment_status.FragmentStatus;
 
 public class ActivityMain extends AppCompatActivity {
 
     private final static int ROUTINEMANAGER_REQUEST_CODE = 2;
-
     private final static int CHOOSE_REQUEST_CODE = 1;
+
     private final static int CHOOSE_RESULT_ROUTINE = 1;
     private final static int CHOOSE_RESULT_GO =2;
 
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private FragmentRountines fragmentRountines;
+    private FragmentRoutines fragmentRountines;
     private FragmentStatus fragmentStatus;
 
 
@@ -78,7 +78,7 @@ public class ActivityMain extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        fragmentRountines = new FragmentRountines();
+        fragmentRountines = new FragmentRoutines(ActivityMain.this);
         fragmentStatus = new FragmentStatus();
 
         fragmentTransaction = fragmentManager.beginTransaction();

@@ -11,7 +11,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     //SQLite 접속을 위한 클래스
 
     final static String DB_NAME = "gogoroutine.db";
-    final static int DB_VERSION = 21;
+    final static int DB_VERSION = 22;
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -44,7 +44,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 "CONSTRAINT routinenum_fk FOREIGN KEY (routineNum) " +
                 "REFERENCES routine(routineNum))"; //외래키 참조화
 
-        sqLiteDatabase.execSQL(qry);
+       // sqLiteDatabase.execSQL(qry); 고는 곧 만들어야됨
     }
 
     @Override

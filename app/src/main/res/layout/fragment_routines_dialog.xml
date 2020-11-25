@@ -25,6 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@id/fragmentdialog_tv_title"
         android:background="@color/colorLightGray"
         />
@@ -41,6 +43,7 @@
         >
 
     <Button
+        android:id="@+id/routinedialog_btn_modify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -51,6 +54,7 @@
         />
 
         <Button
+            android:id="@+id/routinedialog_btn_dup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -61,6 +65,7 @@
             android:stateListAnimator="@null"
             />
         <Button
+            android:id="@+id/routinedialog_btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gogoroutine.ActivityMain;
 import com.example.gogoroutine.R;
 
 import java.util.ArrayList;
@@ -19,6 +20,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<RecyclerViewAdapterDO> mData = new ArrayList<RecyclerViewAdapterDO>();
 
+    Context parentContext;
+
+    FragmentRoutines fragmentRoutines;
+    ActivityMain activityMain;
 
 
     /*테스트 전용 생성자 코드
@@ -28,16 +33,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     */
 
+    public RecyclerViewAdapter(FragmentRoutines fragmentRoutines, ActivityMain activityMain){
+        this.fragmentRoutines = fragmentRoutines;
+        this.activityMain = activityMain;
+    }
+
+
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //위치 사수
 
-        Context context = parent.getContext();
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        parentContext = parent.getContext();
+
+        LayoutInflater inflater = (LayoutInflater) parentContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_routine_recyclerview,parent,false);
-        RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view,context);
+        RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view,parentContext);
 
         return vh;
     }
@@ -47,9 +59,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //글자값 적용
         //실제로 아이템에대한 정보를 적용하는 부분
 
+
         RecyclerViewAdapterDO rdo = mData.get(position);
         holder.tvName.setText(rdo.getName());
         holder.tvStartTime.setText(convertTime(rdo.getStartHour(),rdo.getStartMinute()));
+        final int routineNum = rdo.getRoutineNum();
+
+        holder.btnDialog.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentRoutines_ItemDialog dialog = new FragmentRoutines_ItemDialog(parentContext,fragmentRoutines,activityMain);
+
+                dialog.showDialog(routineNum);
+
+            }
+        });
 
     }
 
@@ -95,19 +120,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvStartTime = itemView.findViewById(R.id.item_tv_starttime);
             btnDialog = itemView.findViewById(R.id.item_btn_dialog);
 
-
-
-            //각 아이템에 달린 ... 버튼을 클릭하게 되면 띄울 다이얼로그 지정
-            btnDialog.setOnClickListener(new ImageButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    FragmentRoutines_ItemDialog dialog = new FragmentRoutines_ItemDialog(context);
-
-                    dialog.showDialog();
-
-                }
-            });
 
 
 

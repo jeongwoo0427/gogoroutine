@@ -24,11 +24,10 @@
             android:id="@+id/main_tv_menuname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Morning Routine"
+            android:layout_alignParentLeft="true"
+            android:text="루틴"
             android:textSize="30dp"
             android:textStyle="bold"
-
             />
 
 

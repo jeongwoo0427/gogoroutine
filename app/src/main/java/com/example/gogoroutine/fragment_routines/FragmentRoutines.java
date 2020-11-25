@@ -13,16 +13,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gogoroutine.ActivityMain;
 import com.example.gogoroutine.others.DbOpenHelper;
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.others.RoutineDAO;
 
-public class FragmentRountines extends Fragment {
+public class FragmentRoutines extends Fragment {
 
-    DbOpenHelper dbOpenHelper;
-    SQLiteDatabase sqLiteDatabase;
+    RoutineDAO routineDAO;
 
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
+
+
+    ActivityMain activityMain;
+
+    public FragmentRoutines(ActivityMain activityMain){
+        this.activityMain = activityMain;
+    }
 
     @Nullable
     @Override
@@ -38,13 +46,11 @@ public class FragmentRountines extends Fragment {
 
     public void DisplayRoutineList() {
 
-        dbOpenHelper = new DbOpenHelper(getContext());
-        sqLiteDatabase = dbOpenHelper.getReadableDatabase();
-        recyclerViewAdapter = new RecyclerViewAdapter();
+        routineDAO = new RoutineDAO(getContext());
 
-        String qry = "SELECT * FROM routine";
+        recyclerViewAdapter = new RecyclerViewAdapter(FragmentRoutines.this, activityMain);
 
-        Cursor cursor = sqLiteDatabase.rawQuery(qry, null);
+        Cursor cursor = routineDAO.getRoutineList();
 
         while (cursor.moveToNext()) {
             //recyclerViewAdapter.addItem(1,"Morning",0,9,0,"0",0,0,0); 테스트용 코드

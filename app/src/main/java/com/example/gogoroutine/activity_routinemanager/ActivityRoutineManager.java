@@ -13,13 +13,22 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.others.DbOpenHelper;
+import com.example.gogoroutine.others.RoutineDAO;
+import com.example.gogoroutine.others.RoutineDO;
 
 public class ActivityRoutineManager extends AppCompatActivity {
+
+    RoutineDO routineDO;
+    RoutineDAO routineDAO;
+
+    TextView tvMenuName;
+
 
     Switch switchIsWholeWeeks,switchIsNotice;
     ToggleButton t1,t2,t3,t4,t5,t6,t7;
@@ -36,6 +45,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
 
     //임시 데이터객체 Instance Data Object
+    /*
     private int iNo = 0;
     private String sRoutineName = "";
     private int iIsNoticeEnable = 0;
@@ -48,27 +58,37 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
 
 
+     */
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_manager);
+
         viewAutoWorkSetting();//사용자에 의해 번경되는 모습으로 작동
 
+
         Intent intent = getIntent();
-        mode = intent.getIntExtra("mode",1);
+        mode = intent.getIntExtra("mode",MODE_NEW);
+        routineDAO = new RoutineDAO(this);
 
         if(mode == MODE_NEW){
             setWholeWeeks(true);
             switchIsWholeWeeks.setChecked(true);
             setIsNotice(false);
             switchIsNotice.setChecked(false);
-            btnStartTime.setText(convertTime(startHour,startMinute));
+            btnStartTime.setText(convertTime(routineDO.getStartHour(),routineDO.getStartMinute()));
 
 
         }else if(mode == MODE_EDIT){
 
+            tvMenuName.setText("루틴수정");
+            btnComplete.setText("저장");
         }
+
+
 
     }
 
@@ -77,6 +97,9 @@ public class ActivityRoutineManager extends AppCompatActivity {
     private void viewAutoWorkSetting(){
 
 
+        routineDO = new RoutineDO(0,"",0,9,0,"1234567",0,0,0);
+
+        tvMenuName = (TextView)findViewById(R.id.main_tv_menuname);
 
         switchIsWholeWeeks = (Switch)findViewById(R.id.routinemanager_switch_iswholeweeks);
         t1 = (ToggleButton)findViewById(R.id.t1);
@@ -102,93 +125,6 @@ public class ActivityRoutineManager extends AppCompatActivity {
         tgIsSound = (ToggleButton)findViewById(R.id.routinemanager_tg_sound);
         tgIsVibration = (ToggleButton)findViewById(R.id.routinemanager_tg_vibration);
 
-        //요일버튼에 따라 스위치의 Checked 도 다르게 설정해야함. 사용x 비효율 코드
-        /*
-        {
-            t1.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-            t2.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-            t3.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-            t4.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-            t5.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-            t6.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-            t7.setOnClickListener(new ToggleButton.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(t1.isChecked()&t2.isChecked()&t3.isChecked()&t4.isChecked()&t5.isChecked()&t6.isChecked()&t7.isChecked()){
-                        switchIsWholeWeeks.setChecked(true);
-                    }else{
-                        switchIsWholeWeeks.setChecked(false);
-                    }
-                }
-            });
-
-
-
-
-        }
-
-         */
-
         switchIsWholeWeeks.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -209,11 +145,11 @@ public class ActivityRoutineManager extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityRoutineManager.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        startHour = i;
-                        startMinute = i1;
-                        btnStartTime.setText(convertTime(startHour,startMinute));
+                        routineDO.setStartHour(i);
+                        routineDO.setStartMinute(i1);
+                        btnStartTime.setText(convertTime(routineDO.getStartHour(),routineDO.getStartMinute()));
                     }
-                },startHour,startMinute,false);
+                },routineDO.getStartHour(),routineDO.getStartMinute(),false);
                 timePickerDialog.show();
             }
         });
@@ -247,8 +183,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
                     //완료버튼 클릭시 실행
 
                     //이름 입력 여부 확인
-                    sRoutineName = etName.getText().toString().trim();
-                    if (sRoutineName.equals("")) {
+
+                    if (etName.getText().toString().trim().equals("")) {
 
                         AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRoutineManager.this);
                         alert.setTitle("주의");
@@ -263,8 +199,12 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
                     }
 
+                    routineDO.setName(etName.getText().toString().trim());
+
                     //알림여부 저장
-                    iIsNoticeEnable = (switchIsNotice.isChecked()) ? 1 : 0;
+                    routineDO.setIsAlamEnable((switchIsNotice.isChecked()) ? 1 : 0);
+
+                    String sSelectedWeeks;
 
                     //선택 요일 저장
                     {
@@ -294,29 +234,21 @@ public class ActivityRoutineManager extends AppCompatActivity {
                         }
                     }
 
+                    routineDO.setSelectedWeeks(sSelectedWeeks);
+
                     //알람음 지정 필요
 
 
+
+
+
                     //소리여부 저장
-                    iIsSound = (tgIsSound.isChecked()) ? 1 : 0;
+                    routineDO.setIsSound((tgIsSound.isChecked()) ? 1 : 0);
 
                     //진동여부 저장
-                    iIsSound = (tgIsVibration.isChecked()) ? 1 : 0;
+                    routineDO.setIsVibration((tgIsVibration.isChecked()) ? 1 : 0);
 
-                    SQLiteDatabase database = new DbOpenHelper(ActivityRoutineManager.this).getWritableDatabase();
-
-                    String qry = "INSERT INTO routine(name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES('" +
-                            sRoutineName.trim() + "'," +
-                            iIsNoticeEnable + "," +
-                            startHour + "," +
-                            startMinute + ",'" +
-                            sSelectedWeeks + "'," +
-                            iAlamMode + "," +
-                            iIsSound + "," +
-                            iIsVibration +
-                            ")";
-
-                    database.execSQL(qry);
+                    routineDAO.insertNewRoutine(routineDO);
 
                     setResult(RESULT_OK);
                     finish();
