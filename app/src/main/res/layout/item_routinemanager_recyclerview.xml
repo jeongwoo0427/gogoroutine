@@ -3,29 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:elevation="7dp"
-
+    android:background="@drawable/item_recycler_card_light"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="8dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:elevation="8dp"
     >
 
 
 
         <ImageView
-            android:id="@+id/item_routineshow_icon"
+            android:id="@+id/item_routinemanager_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:visibility="gone"
+            android:visibility="visible"
             />
 
 
         <TextView
 
-            android:layout_toRightOf="@id/item_routineshow_icon"
+            android:layout_toRightOf="@id/item_routinemanager_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_tv_name"
+            android:id="@+id/item_routinemanager_name"
             android:textSize="20dp"
             android:padding="10dp"
             android:textColor="@color/colorDark"
@@ -36,8 +42,8 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/item_tv_name"
-            android:id="@+id/item_tv_time"
+            android:layout_toRightOf="@id/item_routinemanager_name"
+            android:id="@+id/item_routinemanager_time"
             android:textSize="20dp"
             android:padding="10dp"
             android:textColor="@color/colorTextGray"

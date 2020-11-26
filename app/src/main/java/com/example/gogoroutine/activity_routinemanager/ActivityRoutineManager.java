@@ -1,10 +1,13 @@
 package com.example.gogoroutine.activity_routinemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.example.gogoroutine.R;
 import com.example.gogoroutine.others.DbOpenHelper;
 import com.example.gogoroutine.others.RoutineDAO;
 import com.example.gogoroutine.others.RoutineDO;
+import com.example.gogoroutine.others.RoutineTaskDAO;
 
 public class ActivityRoutineManager extends AppCompatActivity {
 
@@ -29,7 +33,6 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
     TextView tvMenuName;
 
-
     Switch switchIsWholeWeeks, switchIsNotice;
     ToggleButton t1, t2, t3, t4, t5, t6, t7;
     View daypicker;
@@ -37,29 +40,13 @@ public class ActivityRoutineManager extends AppCompatActivity {
     Button btnStartTime, btnAlarmSound, btnCancel, btnComplete;
     EditText etName;
     ToggleButton tgIsSound, tgIsVibration;
+    RecyclerView recyclerView;
 
     final static int MODE_NEW = 1;
     final static int MODE_EDIT = 2;
 
     private int mode;
     private int iRoutineNum = 0;
-
-
-    //임시 데이터객체 Instance Data Object
-    /*
-    private int iNo = 0;
-    private String sRoutineName = "";
-    private int iIsNoticeEnable = 0;
-    private int startHour =9;
-    private int startMinute =0;
-    private String sSelectedWeeks = "1234567";
-    private int iAlamMode = 0;
-    private int iIsSound = 0;
-    private int iIsVibration = 0;
-
-
-
-     */
 
 
     @Override
@@ -118,6 +105,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
         }
 
+        displayRoutineTaskList();
+
 
     }
 
@@ -139,6 +128,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
         t6 = (ToggleButton) findViewById(R.id.t6);
         t7 = (ToggleButton) findViewById(R.id.t7);
         daypicker = (View) findViewById(R.id.daypicker);
+
+        recyclerView = (RecyclerView)findViewById(R.id.routinemanager_recyclerview);
 
         btnStartTime = (Button) findViewById(R.id.routinemanager_btn_starttime);
         btnAlarmSound = (Button) findViewById(R.id.routinemanager_btn_alarmsound);
@@ -290,6 +281,37 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
     }
 
+
+    private void displayRoutineTaskList(){
+
+        ActivityRoutineManagerAdapter adapter = new ActivityRoutineManagerAdapter();
+
+        Cursor cursor = new RoutineTaskDAO(this).getRoutinTaskList(iRoutineNum);
+
+
+        while(cursor.moveToNext()){
+            adapter.addItem(
+                    cursor.getInt(0),
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getInt(3),
+                    cursor.getString(4));
+        }
+
+        //테스트 코드
+
+        /*
+        for(int i =0 ; i<30; i++){
+            adapter.addItem(1,2,"프로"+i,i,"");
+        }
+         */
+
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        recyclerView.setAdapter(adapter);
+    }
+
     private boolean setWholeWeeks(boolean b) {
 
         t1.setChecked(b);
@@ -310,6 +332,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
         ll2.setVisibility(b == true ? View.VISIBLE : View.GONE);
         return b;
     }
+
+
 
     private String convertTime(int hour, int minute) {
 

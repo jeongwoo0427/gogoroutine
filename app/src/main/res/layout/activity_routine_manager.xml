@@ -6,6 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorDarkBlue">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/routinemanager_bottom_ll"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
     <RelativeLayout
         android:id="@+id/routinemanager_rl1"
         android:layout_width="match_parent"
@@ -31,10 +44,12 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/routinemanager_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="20dp"
+        android:elevation="7dp"
         android:layout_below="@+id/routinemanager_rl1"
 
         >
@@ -284,8 +299,61 @@
 
     </androidx.cardview.widget.CardView>
 
+            <RelativeLayout
+                android:id="@+id/routinemanager_rl2"
+                android:layout_below="@id/routinemanager_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                >
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="하위 할일"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorLightGray"
+                    android:layout_centerVertical="true"
+                    />
+
+                <Button
+                    android:id="@+id/routinemanager_btn_taskadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="추가"
+                    android:layout_alignParentRight="true"
+                    />
+                <Button
+                    android:id="@+id/routinemanager_btn_taskselect"
+                    android:layout_toLeftOf="@id/routinemanager_btn_taskadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="선택"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/routinemanager_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_below="@id/routinemanager_rl2"
+                />
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 
     <LinearLayout
+        android:id="@+id/routinemanager_bottom_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

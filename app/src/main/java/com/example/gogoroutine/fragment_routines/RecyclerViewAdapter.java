@@ -25,31 +25,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     FragmentRoutines fragmentRoutines;
     ActivityMain activityMain;
 
-
-    /*테스트 전용 생성자 코드
-    RecyclerViewAdapter(ArrayList<String> list)
-    {
-        mData = list;
-    }
-    */
-
     public RecyclerViewAdapter(FragmentRoutines fragmentRoutines, ActivityMain activityMain){
         this.fragmentRoutines = fragmentRoutines;
         this.activityMain = activityMain;
     }
 
-
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //위치 사수
+        //아이템레이아웃의 위치 사수
 
         parentContext = parent.getContext();
 
         LayoutInflater inflater = (LayoutInflater) parentContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_routine_recyclerview,parent,false);
-        RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view,parentContext);
+        RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view);
 
         return vh;
     }
@@ -112,16 +103,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView tvName,tvStartTime;
         ImageButton btnDialog;
 
-
-
-        public ViewHolder(@NonNull View itemView,final Context context) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvStartTime = itemView.findViewById(R.id.item_tv_starttime);
             btnDialog = itemView.findViewById(R.id.item_btn_dialog);
-
-
-
 
         }
     }
