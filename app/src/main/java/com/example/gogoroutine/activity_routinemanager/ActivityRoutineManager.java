@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +20,6 @@ import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.example.gogoroutine.R;
-import com.example.gogoroutine.others.DbOpenHelper;
 import com.example.gogoroutine.others.RoutineDAO;
 import com.example.gogoroutine.others.RoutineDO;
 import com.example.gogoroutine.others.RoutineTaskDAO;
@@ -41,6 +39,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
     EditText etName;
     ToggleButton tgIsSound, tgIsVibration;
     RecyclerView recyclerView;
+
+    Button btnTaskAdd,btnTaskSelect;
 
     final static int MODE_NEW = 1;
     final static int MODE_EDIT = 2;
@@ -145,6 +145,9 @@ public class ActivityRoutineManager extends AppCompatActivity {
         tgIsSound = (ToggleButton) findViewById(R.id.routinemanager_tg_sound);
         tgIsVibration = (ToggleButton) findViewById(R.id.routinemanager_tg_vibration);
 
+        btnTaskAdd = (Button)findViewById(R.id.routinemanager_btn_taskadd);
+        btnTaskSelect = (Button)findViewById(R.id.routinemanager_btn_taskselect);
+
         switchIsWholeWeeks.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -178,7 +181,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ActivityRoutineManager_AlarmPickerDialog alarmDialog = new ActivityRoutineManager_AlarmPickerDialog(ActivityRoutineManager.this);
+                AlarmPickerDialog alarmDialog = new AlarmPickerDialog(ActivityRoutineManager.this);
 
                 alarmDialog.showDialogForResult(btnAlarmSound);
 
@@ -279,6 +282,18 @@ public class ActivityRoutineManager extends AppCompatActivity {
             });
         }
 
+
+
+        btnTaskAdd.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TaskAddDialog dialog = new TaskAddDialog(ActivityRoutineManager.this);
+                dialog.showDialog(ActivityRoutineManager.this);
+            }
+        });
+
+
+
     }
 
 
@@ -296,7 +311,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
                     cursor.getString(2),
                     cursor.getInt(3),
                     cursor.getString(4),
-                    cursor.getString(5));
+                    cursor.getString(5),
+                    cursor.getInt(6));
         }
 
         //테스트 코드

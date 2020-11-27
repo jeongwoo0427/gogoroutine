@@ -10,11 +10,11 @@ import android.widget.Button;
 import com.example.gogoroutine.R;
 
 //알람 선택시 띄울 다이얼로그를 정의하는 클래스
-public class ActivityRoutineManager_AlarmPickerDialog {
+public class AlarmPickerDialog {
 
     private Context context;
 
-    public ActivityRoutineManager_AlarmPickerDialog(Context context){
+    public AlarmPickerDialog(Context context){
         this.context = context;
     }
 
