@@ -26,14 +26,22 @@
             />
 
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/item_routinemanager_icon"
+            android:layout_toLeftOf="@id/item_routinemanager_btn_delete"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            >
         <TextView
 
-            android:layout_toRightOf="@id/item_routinemanager_icon"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/item_routinemanager_name"
             android:textSize="20dp"
-            android:padding="10dp"
+            android:padding="3dp"
             android:textColor="@color/colorDark"
             android:text="침구류 정리"/>
 
@@ -45,16 +53,29 @@
             android:layout_toRightOf="@id/item_routinemanager_name"
             android:id="@+id/item_routinemanager_time"
             android:textSize="20dp"
-            android:padding="10dp"
+            android:padding="3dp"
             android:textColor="@color/colorTextGray"
             android:text="2분"/>
+
+
+            <TextView
+                android:id="@+id/item_routinemanager_summary"
+                android:layout_below="@id/item_routinemanager_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:text="침구류 정리는 하셨나요? 지금 자로 실시하도록 해요!"
+                />
+
+
+        </RelativeLayout>
 
 
        <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_delete_24"
-
+                android:id="@+id/item_routinemanager_btn_delete"
                 android:layout_alignParentRight="true"
                 android:visibility="invisible"
                 android:layout_centerVertical="true"/>

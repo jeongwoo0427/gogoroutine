@@ -8,15 +8,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="30dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@id/routinemanager_bottom_ll"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
 
     <RelativeLayout
@@ -338,14 +337,15 @@
 
             </RelativeLayout>
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/routinemanager_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_height="match_parent"
                 android:layout_below="@id/routinemanager_rl2"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="15dp"
                 />
-
 
 
         </RelativeLayout>

@@ -21,7 +21,7 @@ public class RoutineTaskDAO {
         dbOpenHelper = new DbOpenHelper(context);
         db = dbOpenHelper.getReadableDatabase();
 
-        String qry = "SELECT R.routineNum,T.taskNum,T.name,T.time,T.emoji " +
+        String qry = "SELECT R.routineNum,T.taskNum,T.name,T.time,T.emoji,T.summary " +
                 "FROM routineTask R " +
                 "INNER JOIN task T ON R.taskNum= T.taskNum " +
                 "WHERE R.routineNum = "+iRoutineNum;

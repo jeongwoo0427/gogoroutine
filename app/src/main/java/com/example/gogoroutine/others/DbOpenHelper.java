@@ -11,7 +11,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     //SQLite 접속을 위한 클래스
 
     final static String DB_NAME = "gogoroutine.db";
-    final static int DB_VERSION = 27;
+    final static int DB_VERSION = 29;
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -49,19 +49,20 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                     "taskNum INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
                     "time INT NOT NULL," +
-                    "emoji TEXT NOT NULL)"; //외래키 참조화
+                    "emoji TEXT NOT NULL," +
+                    "summary TEXT NOT NULL)"; //외래키 참조화
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO task(taskNum,name,time,emoji) VALUES (1,'물 마시기',1,'')";
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary) VALUES (1,'물 마시기',1,'','물을 마시심으로써 건강과 젊음을 유지하세요! 물은 모든 생명의 필수템이랍니다.')";
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO task(taskNum,name,time,emoji) VALUES (2,'이불 정리',1,'')";
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary) VALUES (2,'잠자리 정리',1,'','세상을 바꾸고싶다면? 잠자리 정리부터 해야겠죠!')";
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO task(taskNum,name,time,emoji) VALUES (3,'스트레칭',3,'')";
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary) VALUES (3,'스트레칭',3,'','아침의 준비를 시작하기 전에, 가볍게 스트레칭을 해주도록 해요! 혈액순환에 좋습니다.')";
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO task(taskNum,name,time,emoji) VALUES (4,'씻기',10,'')";
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary) VALUES (4,'씻기',10,'','다른사람들과 어울리는 장소를 가기전에 항상 자신의 모습을 청결하게 유지할 필요가 있죠!')";
             sqLiteDatabase.execSQL(qry);
         }
 
@@ -79,6 +80,8 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             qry = "INSERT INTO routineTask(routineNum,taskNum) VALUES (1,1)";
             sqLiteDatabase.execSQL(qry);
             qry = "INSERT INTO routineTask(routineNum,taskNum) VALUES (1,2)";
+            sqLiteDatabase.execSQL(qry);
+            qry = "INSERT INTO routineTask(routineNum,taskNum) VALUES (1,3)";
             sqLiteDatabase.execSQL(qry);
         }
 

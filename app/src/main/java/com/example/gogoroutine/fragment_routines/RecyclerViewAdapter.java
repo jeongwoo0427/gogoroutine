@@ -109,6 +109,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvStartTime = itemView.findViewById(R.id.item_tv_starttime);
             btnDialog = itemView.findViewById(R.id.item_btn_dialog);
 
+
+
         }
     }
 

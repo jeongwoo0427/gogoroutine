@@ -295,7 +295,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
                     cursor.getInt(1),
                     cursor.getString(2),
                     cursor.getInt(3),
-                    cursor.getString(4));
+                    cursor.getString(4),
+                    cursor.getString(5));
         }
 
         //테스트 코드
