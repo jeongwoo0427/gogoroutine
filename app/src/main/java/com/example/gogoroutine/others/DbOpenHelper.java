@@ -11,7 +11,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     //SQLite 접속을 위한 클래스
 
     final static String DB_NAME = "gogoroutine.db";
-    final static int DB_VERSION = 31;
+    final static int DB_VERSION = 33;
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -65,6 +65,16 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
             qry = "INSERT INTO task(taskNum,name,time,emoji,summary,category) VALUES (4,'씻기',10,'','다른사람들과 어울리는 장소를 가기전에 항상 자신의 모습을 청결하게 유지할 필요가 있죠!',1)";
             sqLiteDatabase.execSQL(qry);
+
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary,category) VALUES (5,'책상 정리',5,'','책상을 보기좋을 정도로만 정리해 두는게 어때요?',1)";
+            sqLiteDatabase.execSQL(qry);
+
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary,category) VALUES (6,'방 청소',10,'','건장을 좌우하는 것은 환경적 요인이 크답니다. 청결한 방을 만들어 봅시다!',1)";
+            sqLiteDatabase.execSQL(qry);
+
+            qry = "INSERT INTO task(taskNum,name,time,emoji,summary,category) VALUES (7,'빨래 하기',10,'','빨래를 합시다!',1)";
+            sqLiteDatabase.execSQL(qry);
+
         }
 
 

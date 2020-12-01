@@ -94,7 +94,6 @@ public class ActivityRoutineManager extends AppCompatActivity {
                 t6.setChecked(selectedWeeks.contains("6"));
                 t7.setChecked(selectedWeeks.contains("7"));
 
-
             }
 
             switchIsNotice.setChecked(setIsNotice(routineDO.getIsAlamEnable()==1?true:false));

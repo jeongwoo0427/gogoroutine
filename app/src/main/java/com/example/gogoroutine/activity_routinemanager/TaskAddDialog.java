@@ -2,20 +2,27 @@ package com.example.gogoroutine.activity_routinemanager;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ToggleButton;
+import android.widget.Toast;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.others.TaskDAO;
 
 public class TaskAddDialog {
 
+    RecyclerView recyclerView;
     Button btnDefault, btnCustom;
 
     Context context;
+
 
     public TaskAddDialog(Context context) {
         this.context = context;
@@ -34,11 +41,13 @@ public class TaskAddDialog {
 
         viewSetting(dialog);
 
-
+        displayList(1);
 
     }
 
     void viewSetting(Dialog dialog) {
+
+        recyclerView = (RecyclerView) dialog.findViewById(R.id.addtaskdialog_recycler);
         btnDefault = (Button) dialog.findViewById(R.id.addtaskdialog_tg_default);
         btnCustom = (Button) dialog.findViewById(R.id.addtaskdialog_tg_custom);
 
@@ -60,6 +69,28 @@ public class TaskAddDialog {
 
     }
 
+    void displayList(int selectedCategory){
+
+        TaskAddDialogAdapter adapter = new TaskAddDialogAdapter();
+
+        Cursor cursor = new TaskDAO(context).getTaskList(selectedCategory);
+
+        while(cursor.moveToNext()){
+            adapter.addItem(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5)
+            );
+        }
+
+
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+        recyclerView.setAdapter(adapter);
+
+    }
 
     void setSwitchButton(int index) {
         switch (index) {
@@ -84,6 +115,7 @@ public class TaskAddDialog {
                 break;
 
         }
+        displayList(index);
     }
 
 
