@@ -1,7 +1,6 @@
-package com.example.gogoroutine.activity_routinemanager;
+package com.example.gogoroutine.others;
 
-public class TaskAddDialogAdapterDO {
-
+public class TaskDO {
     private int taskNum;
     private String name;
     private int hour;
@@ -25,11 +24,21 @@ public class TaskAddDialogAdapterDO {
     public void setName(String name){this.name = name;}
     public void setHour(int hour){this.hour = hour;}
     public void setMinute(int minute){this.minute = minute;}
-    public void setSecond(int second){this.second = second;}
+    public void setSecond(int second){this.second =second;}
     public void setEmoji(String emoji){this.emoji = emoji;}
     public void setSummary(String summary){this.summary = summary;}
     public void setCategory(int category){this.category = category;}
 
+    public TaskDO(String name, int hour,int minute, int second, String emoji, String summary, int category){
 
+        this.name = name;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+        this.emoji = emoji;
+        this.summary = summary;
+        this.category = category;
+
+    }
 
 }

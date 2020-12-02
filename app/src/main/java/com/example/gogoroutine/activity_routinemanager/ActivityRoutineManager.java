@@ -1,5 +1,6 @@
 package com.example.gogoroutine.activity_routinemanager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,10 @@ import com.example.gogoroutine.others.RoutineDO;
 import com.example.gogoroutine.others.RoutineTaskDAO;
 
 public class ActivityRoutineManager extends AppCompatActivity {
+
+    public static int REQUEST_TASKMANAGER =1;
+
+    public TaskAddDialog taskdialog;
 
     RoutineDO routineDO;
     RoutineDAO routineDAO;
@@ -286,8 +291,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
         btnTaskAdd.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TaskAddDialog dialog = new TaskAddDialog(ActivityRoutineManager.this);
-                dialog.showDialog(ActivityRoutineManager.this);
+                taskdialog = new TaskAddDialog(ActivityRoutineManager.this);
+                taskdialog.showDialog(ActivityRoutineManager.this);
             }
         });
 
@@ -309,9 +314,11 @@ public class ActivityRoutineManager extends AppCompatActivity {
                     cursor.getInt(1),
                     cursor.getString(2),
                     cursor.getInt(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getInt(6));
+                    cursor.getInt(4),
+                    cursor.getInt(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getInt(8));
         }
 
         //테스트 코드
@@ -386,4 +393,17 @@ public class ActivityRoutineManager extends AppCompatActivity {
         return convertedTime;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_TASKMANAGER){
+
+            if(resultCode == RESULT_OK){
+                taskdialog.setSwitchButton(2);
+            }
+
+        }
+
+    }
 }

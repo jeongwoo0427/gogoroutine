@@ -39,8 +39,9 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
         TaskAddDialogAdapterDO tDo = list.get(position);
 
         holder.tvName.setText(tDo.getName());
-        holder.tvTime.setText(tDo.getTime()+"분");
+        holder.tvTime.setText(tDo.getMinute()+"분");
         holder.tvSummary.setText(tDo.getSummary());
+        holder.tvEmoji.setText(tDo.getEmoji());
 
     }
 
@@ -50,12 +51,14 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
     }
 
 
-    public void addItem(int tasknum,String name, int time,String emoji,String summary, int category){
+    public void addItem(int tasknum,String name, int hour,int minute,int second,String emoji,String summary, int category){
 
         TaskAddDialogAdapterDO tDo = new TaskAddDialogAdapterDO();
         tDo.setTaskNum(tasknum);
         tDo.setName(name);
-        tDo.setTime(time);
+        tDo.setHour(hour);
+        tDo.setMinute(minute);
+        tDo.setSecond(second);
         tDo.setEmoji(emoji);
         tDo.setSummary(summary);
         tDo.setCategory(category);
@@ -67,7 +70,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvName,tvTime,tvSummary;
+        TextView tvName,tvTime,tvSummary,tvEmoji;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +78,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             tvName = itemView.findViewById(R.id.item_addtaskdialog_name);
             tvTime = itemView.findViewById(R.id.item_addtaskdialog_time);
             tvSummary = itemView.findViewById(R.id.item_addtaskdialog_summary);
+            tvEmoji = itemView.findViewById(R.id.item_addtaskdialog_emoji);
 
         }
     }

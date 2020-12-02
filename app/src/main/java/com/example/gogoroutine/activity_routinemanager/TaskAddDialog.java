@@ -2,24 +2,28 @@ package com.example.gogoroutine.activity_routinemanager;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.activity_taskmanager.ActivityTaskManager;
 import com.example.gogoroutine.others.TaskDAO;
 
 public class TaskAddDialog {
 
     RecyclerView recyclerView;
     Button btnDefault, btnCustom;
+    TextView tvAddNew;
 
     Context context;
 
@@ -50,8 +54,11 @@ public class TaskAddDialog {
         recyclerView = (RecyclerView) dialog.findViewById(R.id.addtaskdialog_recycler);
         btnDefault = (Button) dialog.findViewById(R.id.addtaskdialog_tg_default);
         btnCustom = (Button) dialog.findViewById(R.id.addtaskdialog_tg_custom);
+        tvAddNew = (TextView)dialog.findViewById(R.id.addtaskdialog_addnew);
+
 
         setSwitchButton(1);
+
 
         btnDefault.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -67,22 +74,33 @@ public class TaskAddDialog {
             }
         });
 
+        tvAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, ActivityTaskManager.class);
+                ((ActivityRoutineManager)context).startActivityForResult(intent,ActivityRoutineManager.REQUEST_TASKMANAGER);
+            }
+        });
+
     }
 
     void displayList(int selectedCategory){
 
         TaskAddDialogAdapter adapter = new TaskAddDialogAdapter();
 
-        Cursor cursor = new TaskDAO(context).getTaskList(selectedCategory);
+        Cursor cursor = new TaskDAO(context).GetTaskList(selectedCategory);
 
         while(cursor.moveToNext()){
             adapter.addItem(
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getInt(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5)
+                    cursor.getInt(3),
+                    cursor.getInt(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getInt(7)
             );
         }
 
@@ -116,6 +134,11 @@ public class TaskAddDialog {
 
         }
         displayList(index);
+    }
+
+
+    public void ShowToastMessage(int i){
+        Toast.makeText(context,"태스크관리 다이얼로그가 종료되었음 : "+i,Toast.LENGTH_LONG).show();
     }
 
 

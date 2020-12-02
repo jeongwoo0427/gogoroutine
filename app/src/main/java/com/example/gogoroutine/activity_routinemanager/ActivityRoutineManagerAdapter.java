@@ -41,8 +41,8 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         //포지션에 따라 뷰에 속성 적용
         ActivityRoutineManagerAdapterDO rdo = list.get(position);
         holder.tvName.setText(rdo.getsName());
-        holder.tvTime.setText(rdo.getiTime()+"분"); //분 변환 함수 제작 필요
-        holder.tvSummary.setText(rdo.getsSummary());
+        holder.tvTime.setText(rdo.getMinute()+"분"); //분 변환 함수 제작 필요
+        holder.tvEmoji.setText(rdo.getsEmoji());
 
     }
 
@@ -51,13 +51,15 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         return list.size();
     }
 
-    public void addItem(int routineNum, int taskNum, String name, int time,String emoji,String summary,int category){
+    public void addItem(int routineNum, int taskNum, String name, int hour,int minute, int second,String emoji,String summary,int category){
 
         ActivityRoutineManagerAdapterDO rdo = new ActivityRoutineManagerAdapterDO();
         rdo.setiRoutineNum(routineNum);
         rdo.setiTaskNum(taskNum);
         rdo.setsName(name);
-        rdo.setiTime(time);
+        rdo.setHour(hour);
+        rdo.setMinute(minute);
+        rdo.setSecond(second);
         rdo.setsEmoji(emoji);
         rdo.setsSummary(summary);
         rdo.setiCategory(category);
@@ -71,13 +73,14 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         //뷰 사수
         //뷰 홀더를 오버라이드하여 위에서 아이템에 대한 객체들을 지정할 때 이 클래스를 사용하도록 함
 
-        TextView tvName,tvTime,tvSummary;
+        TextView tvName,tvTime,tvEmoji;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.item_routinemanager_name);
             tvTime = itemView.findViewById(R.id.item_routinemanager_time);
-            tvSummary = itemView.findViewById(R.id.item_routinemanager_summary);
+            tvEmoji = itemView.findViewById(R.id.item_routinemanager_emoji);
 
         }
     }

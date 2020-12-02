@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightTheme">
-        <activity android:name=".activity_taskmanager.Activity_TaskManager"></activity>
+        <activity android:name=".activity_taskmanager.ActivityTaskManager"></activity>
         <activity android:name=".activity_routineshow.ActivityRoutineShow" />
         <activity android:name=".activity_routinemanager.ActivityRoutineManager" />
         <activity android:name=".ActivityChoose" />
