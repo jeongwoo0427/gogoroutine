@@ -68,7 +68,7 @@ public class RoutineDAO {
     }
 
 
-    public void insertNewRoutine(RoutineDO routineDO) {
+    public int insertNewRoutine(RoutineDO routineDO) {
         dbOpenHelper = new DbOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
 
@@ -81,9 +81,16 @@ public class RoutineDAO {
                 routineDO.getAlameMode() + "," +
                 routineDO.getIsSound() + "," +
                 routineDO.getIsVibration() +
-                ")";
+                ");";
 
         database.execSQL(qry);
+
+        qry = "SELECT last_insert_rowid();";
+
+        cursor =  database.rawQuery(qry,null);
+        cursor.moveToFirst();
+        int index = cursor.getInt(0);
+        return index; //최근 입력한 루틴의 id값을 알아야 routineTask를 추가할 때 사용할 수 있음
     }
 
     public void updateRoutine(RoutineDO routineDO) {
@@ -109,8 +116,10 @@ public class RoutineDAO {
         dbOpenHelper = new DbOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
 
-        String qry = "DELETE FROM routine WHERE routineNum=" + routineNum;
+        String qry = "DELETE FROM routineTask WHERE routineNum=" + routineNum;
+        database.execSQL(qry);
 
+        qry = "DELETE FROM routine WHERE routineNum=" + routineNum;
         database.execSQL(qry);
     }
 

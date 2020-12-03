@@ -9,7 +9,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.example.gogoroutine.R;
-import com.example.gogoroutine.activity_routinemanager.TaskAddDialog;
+import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
 
 public class DialogTaskManager {
 

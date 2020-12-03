@@ -1,22 +1,29 @@
-package com.example.gogoroutine.activity_routinemanager;
+package com.example.gogoroutine.activity_routinemanager.AddTaskDialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 
 import java.util.ArrayList;
 
 public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdapter.ViewHolder> {
 
     ArrayList<TaskAddDialogAdapterDO> list = new ArrayList<TaskAddDialogAdapterDO>();
+
+    Context context;
+
+    public TaskAddDialogAdapter(Context context){
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -36,12 +43,32 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        TaskAddDialogAdapterDO tDo = list.get(position);
+        final TaskAddDialogAdapterDO tDo = list.get(position);
+
+        if(tDo.getSummary().trim().equals("")){
+            holder.tvSummary.setVisibility(View.GONE);
+        }else{
+            holder.tvSummary.setText(tDo.getSummary());
+        }
 
         holder.tvName.setText(tDo.getName());
         holder.tvTime.setText(tDo.getMinute()+"분");
-        holder.tvSummary.setText(tDo.getSummary());
+
         holder.tvEmoji.setText(tDo.getEmoji());
+
+        holder.ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //여기 아이템 +버튼 누를때 작동되는 영역
+                ActivityRoutineManager activityRoutineManager = (ActivityRoutineManager)context;
+                activityRoutineManager.adapter.addItem(-1,tDo.getTaskNum(),tDo.getName(),tDo.getHour(), tDo.getMinute(), tDo.getSecond(), tDo.getEmoji(), tDo.getSummary(), tDo.getCategory());
+
+                activityRoutineManager.recyclerView.setAdapter(activityRoutineManager.adapter);
+
+
+            }
+        });
+
 
     }
 
@@ -71,6 +98,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
     class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvName,tvTime,tvSummary,tvEmoji;
+        ImageView ivAdd;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +107,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             tvTime = itemView.findViewById(R.id.item_addtaskdialog_time);
             tvSummary = itemView.findViewById(R.id.item_addtaskdialog_summary);
             tvEmoji = itemView.findViewById(R.id.item_addtaskdialog_emoji);
+            ivAdd = itemView.findViewById(R.id.addtaskdialog_add);
 
         }
     }

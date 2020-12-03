@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_alignParentTop="true"
         android:layout_above="@id/routinemanager_bottom_ll"
         >
@@ -320,19 +321,46 @@
                     android:layout_centerVertical="true"
                     />
 
+
+                <ImageView
+                    android:id="@+id/routinemanager_iv_taskadd"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/add_green"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    />
+                <ImageView
+                    android:id="@+id/routinemanager_iv_taskremove"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/remove_red"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/routinemanager_iv_taskadd"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    />
+
+
                 <Button
                     android:id="@+id/routinemanager_btn_taskadd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/shape_rectangle_light"
                     android:text="추가"
                     android:layout_alignParentRight="true"
+                    android:visibility="gone"
                     />
                 <Button
                     android:id="@+id/routinemanager_btn_taskselect"
                     android:layout_toLeftOf="@id/routinemanager_btn_taskadd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_rectangle_light"
+                    android:visibility="gone"
                     android:text="선택"/>
 
             </RelativeLayout>
@@ -342,6 +370,7 @@
                 android:id="@+id/routinemanager_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
                 android:layout_below="@id/routinemanager_rl2"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="15dp"
@@ -368,7 +397,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rectangle_light"
             android:textSize="20dp"
-            android:layout_marginRight="30dp"
             android:text="취소"
             android:elevation="7dp"
             />
@@ -380,6 +408,7 @@
             android:background="@drawable/shape_rectangle_light"
             android:textSize="20dp"
             android:text="생성"
+            android:layout_marginLeft="30dp"
             android:elevation="7dp"
             />
 

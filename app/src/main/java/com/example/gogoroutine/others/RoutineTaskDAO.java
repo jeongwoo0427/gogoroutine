@@ -17,7 +17,7 @@ public class RoutineTaskDAO {
         this.context = context;
     }
 
-    public Cursor getRoutinTaskList(int iRoutineNum){
+    public Cursor GetRoutineTaskList(int iRoutineNum){
         dbOpenHelper = new DbOpenHelper(context);
         db = dbOpenHelper.getReadableDatabase();
 
@@ -28,6 +28,27 @@ public class RoutineTaskDAO {
                 "ORDER BY R.taskOrder ASC";
 
         return db.rawQuery(qry, null);
+    }
+
+
+    public void InsertNewRoutineTask(int routineNum,int taskNum,int order){
+        dbOpenHelper = new DbOpenHelper(context);
+        db = dbOpenHelper.getWritableDatabase();
+
+        String qry = "INSERT INTO routineTask (routineNum,taskNum,taskOrder) VALUES ("+routineNum+","+taskNum+","+order+")";
+
+        db.execSQL(qry);
+
+    }
+
+    //초기화 전용 루틴 업데이트시 항상 실행되어야 됨
+    public void InitRoutineTask(int routineNum){
+        dbOpenHelper = new DbOpenHelper(context);
+        db = dbOpenHelper.getWritableDatabase();
+
+        String qry = "DELETE FROM routineTask WHERE routineNum = "+routineNum;
+
+        db.execSQL(qry);
     }
 
 

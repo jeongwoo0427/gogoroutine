@@ -1,84 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_recycler_card_light"
     android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
     android:layout_marginTop="3dp"
+    android:layout_marginRight="15dp"
     android:layout_marginBottom="7dp"
-    android:paddingRight="10dp"
+    android:background="@drawable/item_recycler_card_light"
+    android:elevation="4dp"
     android:paddingLeft="10dp"
     android:paddingTop="5dp"
+    android:paddingRight="10dp"
     android:paddingBottom="5dp"
-    android:elevation="4dp"
+
     >
 
 
+    <TextView
+        android:id="@+id/item_addtaskdialog_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:visibility="visible" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/addtaskdialog_add"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/item_addtaskdialog_emoji"
+
+        >
 
         <TextView
-            android:id="@+id/item_addtaskdialog_emoji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="30dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:visibility="visible"
-            />
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/item_addtaskdialog_emoji"
-
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            >
-        <TextView
-
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/item_addtaskdialog_name"
-            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="3dp"
+            android:text="침구류 정리"
+
             android:textColor="@color/colorDark"
-            android:text="침구류 정리"/>
+            android:textSize="15dp" />
 
         <TextView
 
 
+            android:id="@+id/item_addtaskdialog_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/item_addtaskdialog_name"
-            android:id="@+id/item_addtaskdialog_time"
-            android:textSize="15dp"
             android:padding="3dp"
+            android:text="2분"
             android:textColor="@color/colorTextGray"
-            android:text="2분"/>
+            android:textSize="15dp" />
 
 
-            <TextView
-                android:id="@+id/item_addtaskdialog_summary"
-                android:layout_below="@id/item_addtaskdialog_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:textSize="12dp"
-                android:text="침구류 정리는 하셨나요? 지금 자로 실시하도록 해요!"
-                />
+        <TextView
+            android:id="@+id/item_addtaskdialog_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_addtaskdialog_name"
+            android:padding="3dp"
+            android:text="침구류 정리는 하셨나요? 지금 자로 실시하도록 해요!"
+            android:textSize="12dp" />
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 
-
-
-
-
+    <ImageView
+        android:id="@+id/addtaskdialog_add"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_baseline_add_circle_outline_24"
+        android:scaleType="fitXY"
+            />
 
 
 </RelativeLayout>

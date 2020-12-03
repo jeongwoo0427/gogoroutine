@@ -1,4 +1,4 @@
-package com.example.gogoroutine.activity_routinemanager;
+package com.example.gogoroutine.activity_routinemanager.AddTaskDialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,15 +16,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 import com.example.gogoroutine.activity_taskmanager.ActivityTaskManager;
 import com.example.gogoroutine.others.TaskDAO;
 
 public class TaskAddDialog {
 
+
     RecyclerView recyclerView;
     Button btnDefault, btnCustom;
     TextView tvAddNew;
-
     Context context;
 
 
@@ -87,7 +88,7 @@ public class TaskAddDialog {
 
     void displayList(int selectedCategory){
 
-        TaskAddDialogAdapter adapter = new TaskAddDialogAdapter();
+        TaskAddDialogAdapter adapter = new TaskAddDialogAdapter(context);
 
         Cursor cursor = new TaskDAO(context).GetTaskList(selectedCategory);
 
@@ -110,7 +111,8 @@ public class TaskAddDialog {
 
     }
 
-    void setSwitchButton(int index) {
+
+    public void setSwitchButton(int index) {
         switch (index) {
             case 1:
 

@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.NumberPicker;
 
 import com.example.gogoroutine.R;
-import com.example.gogoroutine.activity_routinemanager.TaskAddDialog;
+import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
 import com.example.gogoroutine.others.TaskDAO;
 import com.example.gogoroutine.others.TaskDO;
 
@@ -24,7 +24,8 @@ public class ActivityTaskManager extends AppCompatActivity {
 
     Button btnCancel, btnComplete;
     EditText etEmoji,etName;
-    TimePicker timepicker;
+    NumberPicker npHour,npMinute,npSecond;
+
 
 
     @Override
@@ -39,9 +40,18 @@ public class ActivityTaskManager extends AppCompatActivity {
         btnComplete = (Button)findViewById(R.id.taskmanager_btn_complete);
         etEmoji = (EditText)findViewById(R.id.taskmanager_emoji);
         etName = (EditText)findViewById(R.id.taskmanager_name);
-        timepicker = (TimePicker)findViewById(R.id.taskmanager_timepicker);
+        npHour = (NumberPicker)findViewById(R.id.taskmanager_timehour);
+        npMinute = (NumberPicker)findViewById(R.id.taskmanager_timeminute);
+        npSecond = (NumberPicker)findViewById(R.id.taskmanager_timesecond);
 
-        timepicker.setIs24HourView(true);
+        npHour.setMinValue(0);
+        npHour.setMaxValue(23);
+        npMinute.setMinValue(0);
+        npMinute.setMaxValue(59);
+        npSecond.setMinValue(0);
+        npSecond.setMaxValue(59);
+
+
 
 
         btnCancel.setOnClickListener(new Button.OnClickListener() {
@@ -76,9 +86,9 @@ public class ActivityTaskManager extends AppCompatActivity {
                 taskDAO = new TaskDAO(ActivityTaskManager.this);
                 taskDO = new TaskDO(
                         etName.getText().toString().trim(),
-                        0,
-                        1,
-                        0,
+                        npHour.getValue(),
+                        npMinute.getValue(),
+                        npSecond.getValue(),
                         etEmoji.getText().toString().trim(),
                         "",
                         2

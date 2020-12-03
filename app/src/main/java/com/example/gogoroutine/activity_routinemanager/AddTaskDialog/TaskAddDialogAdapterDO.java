@@ -1,4 +1,4 @@
-package com.example.gogoroutine.activity_routinemanager;
+package com.example.gogoroutine.activity_routinemanager.AddTaskDialog;
 
 public class TaskAddDialogAdapterDO {
 

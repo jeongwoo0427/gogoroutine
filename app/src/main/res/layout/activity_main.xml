@@ -27,30 +27,34 @@
     <ImageButton
         android:id="@+id/main_choose_btn_add_routine"
         android:transitionName="routineTransition"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/botton_addroutine"
         android:src="@drawable/ic_baseline_spellcheck_24"
         android:adjustViewBounds="true"
+        android:alpha="0"
         android:scaleType="fitCenter"
         android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@id/main_btn_add"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:elevation="5dp"
         />
     <ImageButton
         android:id="@+id/main_choose_btn_add_go"
         android:transitionName="goTransition"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/botton_addgo"
         android:src="@drawable/ic_baseline_format_align_center_24"
         android:adjustViewBounds="true"
+        android:alpha="0"
         android:scaleType="fitCenter"
         android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@id/main_btn_add"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:elevation="5dp"
         />
@@ -68,9 +72,6 @@
         android:layout_alignParentBottom="true"
         android:padding="10dp"
         android:elevation="5dp"
-
-
-
         />
 
 

@@ -3,17 +3,20 @@ package com.example.gogoroutine.activity_routinemanager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,6 +24,10 @@ import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
+import com.example.gogoroutine.activity_routinemanager.Recycler.ActivityRoutineManagerAdapter;
+import com.example.gogoroutine.activity_routinemanager.Recycler.ActivityRoutineManagerAdapterDO;
+import com.example.gogoroutine.activity_routinemanager.Recycler.ItemTouchHelperCallback;
 import com.example.gogoroutine.others.RoutineDAO;
 import com.example.gogoroutine.others.RoutineDO;
 import com.example.gogoroutine.others.RoutineTaskDAO;
@@ -33,19 +40,26 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
     RoutineDO routineDO;
     RoutineDAO routineDAO;
+    RoutineTaskDAO routineTaskDAO;
+
+    public ActivityRoutineManagerAdapter adapter;
+    ItemTouchHelper itemTouchHelper;
 
     TextView tvMenuName;
 
-    Switch switchIsWholeWeeks, switchIsNotice;
-    ToggleButton t1, t2, t3, t4, t5, t6, t7;
-    View daypicker;
-    LinearLayout ll2, daypickerlayout;
-    Button btnStartTime, btnAlarmSound, btnCancel, btnComplete;
-    EditText etName;
-    ToggleButton tgIsSound, tgIsVibration;
-    RecyclerView recyclerView;
-
+    private Switch switchIsWholeWeeks, switchIsNotice;
+    private ToggleButton t1, t2, t3, t4, t5, t6, t7;
+    private View daypicker;
+    private LinearLayout ll2, daypickerlayout;
+    private Button btnStartTime, btnAlarmSound, btnCancel, btnComplete;
     Button btnTaskAdd,btnTaskSelect;
+    ImageView ivTaskAdd,ivTaskRemove;
+    private EditText etName;
+    private ToggleButton tgIsSound, tgIsVibration;
+
+    public RecyclerView recyclerView; //taskadddialogadapter에서 아이템 추가 클릭시 setAdapter를 해줘야 함
+
+
 
     final static int MODE_NEW = 1;
     final static int MODE_EDIT = 2;
@@ -149,8 +163,11 @@ public class ActivityRoutineManager extends AppCompatActivity {
         tgIsSound = (ToggleButton) findViewById(R.id.routinemanager_tg_sound);
         tgIsVibration = (ToggleButton) findViewById(R.id.routinemanager_tg_vibration);
 
-        btnTaskAdd = (Button)findViewById(R.id.routinemanager_btn_taskadd);
-        btnTaskSelect = (Button)findViewById(R.id.routinemanager_btn_taskselect);
+        ivTaskAdd = (ImageView)findViewById(R.id.routinemanager_iv_taskadd);
+        ivTaskRemove = (ImageView)findViewById(R.id.routinemanager_iv_taskremove);
+
+        //btnTaskAdd = (Button)findViewById(R.id.routinemanager_btn_taskadd);
+        //btnTaskSelect = (Button)findViewById(R.id.routinemanager_btn_taskselect);
 
         switchIsWholeWeeks.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -196,7 +213,11 @@ public class ActivityRoutineManager extends AppCompatActivity {
         btnCancel.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                if(adapter.isDeleteMode) {
+                    SetDeleteMode(adapter.isDeleteMode?false:true);
+                }else{
+                    finish();
+                }
             }
         });
 
@@ -270,12 +291,26 @@ public class ActivityRoutineManager extends AppCompatActivity {
                     //진동여부 저장
                     routineDO.setIsVibration((tgIsVibration.isChecked()) ? 1 : 0);
 
+
+
                     if(mode == MODE_NEW) {
-                        routineDAO.insertNewRoutine(routineDO);
+                        iRoutineNum = routineDAO.insertNewRoutine(routineDO);
                     }else if(mode == MODE_EDIT){
                         routineDO.setRoutineNum(iRoutineNum);
                         routineDAO.updateRoutine(routineDO);
                     }
+
+
+                    routineTaskDAO = new RoutineTaskDAO(ActivityRoutineManager.this);
+                    routineTaskDAO.InitRoutineTask(iRoutineNum);
+
+                    int order = 1;
+
+                    for(ActivityRoutineManagerAdapterDO ado : adapter.list){
+                        routineTaskDAO.InsertNewRoutineTask(iRoutineNum,ado.getiTaskNum(),order);
+                        order++;
+                    }
+
 
                     setResult(RESULT_OK);
                     finish();
@@ -288,11 +323,18 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
 
 
-        btnTaskAdd.setOnClickListener(new Button.OnClickListener() {
+        ivTaskAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 taskdialog = new TaskAddDialog(ActivityRoutineManager.this);
                 taskdialog.showDialog(ActivityRoutineManager.this);
+            }
+        });
+
+        ivTaskRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SetDeleteMode(adapter.isDeleteMode?false:true);
             }
         });
 
@@ -303,9 +345,13 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
     private void displayRoutineTaskList(){
 
-        ActivityRoutineManagerAdapter adapter = new ActivityRoutineManagerAdapter();
+        adapter = new ActivityRoutineManagerAdapter();
 
-        Cursor cursor = new RoutineTaskDAO(this).getRoutinTaskList(iRoutineNum);
+        itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        Cursor cursor = new RoutineTaskDAO(this).GetRoutineTaskList(iRoutineNum);
 
 
         while(cursor.moveToNext()){
@@ -328,6 +374,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
             adapter.addItem(1,2,"프로"+i,i,"");
         }
          */
+
 
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -356,6 +403,25 @@ public class ActivityRoutineManager extends AppCompatActivity {
         return b;
     }
 
+    private void SetDeleteMode(boolean b){
+
+        boolean isDeleteMode= b;
+
+        adapter.isDeleteMode = isDeleteMode;
+        recyclerView.setAdapter(adapter);
+
+        if(isDeleteMode) {
+            btnComplete.setVisibility(View.GONE);
+            btnCancel.setText("완료");
+            ivTaskAdd.setVisibility(View.GONE);
+            ivTaskRemove.setVisibility(View.GONE);
+        }else{
+            btnComplete.setVisibility(View.VISIBLE);
+            btnCancel.setText("취소");
+            ivTaskAdd.setVisibility(View.VISIBLE);
+            ivTaskRemove.setVisibility(View.VISIBLE);
+        }
+    }
 
 
     private String convertTime(int hour, int minute) {
@@ -406,4 +472,5 @@ public class ActivityRoutineManager extends AppCompatActivity {
         }
 
     }
+
 }
