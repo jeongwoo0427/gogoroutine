@@ -11,14 +11,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.activity_routinemanager.OnTaskItemClickListener;
 
 import java.util.ArrayList;
 
 public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<ActivityRoutineManagerAdapter.ViewHolder> implements ItemTouchHelperListener{
 
 
+
+
+
+    OnTaskItemClickListener mListener=null;
     public ArrayList<ActivityRoutineManagerAdapterDO> list = new ArrayList<ActivityRoutineManagerAdapterDO>();
     public boolean isDeleteMode = false;
+
+
+
+
+
+    public void setOnItemClickListener(OnTaskItemClickListener listener){
+        this.mListener = listener;
+    }
+
 
     @NonNull
     @Override
@@ -49,16 +63,39 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         holder.btnDelete.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                list.remove(iPosition);
-                notifyItemRemoved(iPosition);
+                try{
+                   // notifyDataSetChanged();
+                    list.remove(iPosition);
+                    notifyItemRemoved(iPosition);
+                    notifyItemRangeChanged(iPosition, list.size());
+                    //removes the row
+                } catch (Exception e){
+                    notifyDataSetChanged();
+                    e.printStackTrace();
+                }
             }
         });
+        holder.itemview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(mListener != null) {
+                    mListener.onItemClick(view, iPosition);
+                }
+            }
+        });
+
+
     }
+
+
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+    public Object getItem(int position){return list.get(position);}
 
     public void addItem(int routineNum, int taskNum, String name, int hour,int minute, int second,String emoji,String summary,int category){
 
@@ -74,19 +111,25 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         rdo.setiCategory(category);
 
         list.add(rdo);
-
-
     }
 
     @Override
     public boolean onItemMove(int form_position, int to_position) {
+
         ActivityRoutineManagerAdapterDO item = list.get(form_position);
         list.remove(form_position);
         list.add(to_position,item);
         notifyItemMoved(form_position, to_position);
+     // routineManager.recyclerView.setAdapter(routineManager.adapter);
+
+
         return true;
     }
 
+    @Override
+    public void changed() {
+        notifyDataSetChanged();
+    }
 
 
 
@@ -96,6 +139,7 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         //뷰 사수
         //뷰 홀더를 오버라이드하여 위에서 아이템에 대한 객체들을 지정할 때 이 클래스를 사용하도록 함
 
+        View itemview;
         TextView tvName,tvTime,tvEmoji;
         Button btnDelete;
 
@@ -107,6 +151,7 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
             tvTime = itemView.findViewById(R.id.item_routinemanager_time);
             tvEmoji = itemView.findViewById(R.id.item_routinemanager_emoji);
             btnDelete = itemView.findViewById(R.id.item_routinemanager_btn_delete);
+            this.itemview = itemView;
 
 
         }

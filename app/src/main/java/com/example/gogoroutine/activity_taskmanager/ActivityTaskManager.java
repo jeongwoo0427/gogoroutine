@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 
 import com.example.gogoroutine.R;
@@ -17,7 +19,6 @@ import com.example.gogoroutine.others.TaskDO;
 
 public class ActivityTaskManager extends AppCompatActivity {
 
-    TaskAddDialog dialog;
 
     TaskDAO taskDAO;
     TaskDO taskDO;
@@ -25,6 +26,12 @@ public class ActivityTaskManager extends AppCompatActivity {
     Button btnCancel, btnComplete;
     EditText etEmoji,etName;
     NumberPicker npHour,npMinute,npSecond;
+    ImageView ivDelete;
+
+    int num = 0;
+    int mode = 1;
+    int category = 2;
+
 
 
 
@@ -32,7 +39,40 @@ public class ActivityTaskManager extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_manager);
+
+        Intent intent = getIntent();
+        mode = intent.getIntExtra("mode",1);
+        taskDAO = new TaskDAO(this);
+
         ViewSetting();
+
+        //새글
+        if(mode==1) {
+            category = 2;
+            ivDelete.setVisibility(View.GONE);
+
+
+
+
+        }else if(mode == 2){ //수정
+            ivDelete.setVisibility(View.VISIBLE);
+            num = intent.getIntExtra("num",0);
+            taskDO = taskDAO.GetTaskDetail(num);
+            etName.setText(taskDO.getName());
+            etEmoji.setText(taskDO.getEmoji());
+            npHour.setValue(taskDO.getHour());
+            npMinute.setValue(taskDO.getMinute());
+            npSecond.setValue(taskDO.getSecond());
+            btnComplete.setText("저장");
+            if(taskDO.getCategory()==1){
+                category = 1;
+                etName.setEnabled(false);
+                ivDelete.setVisibility(View.GONE);
+            }
+
+        }
+
+
     }
 
     void ViewSetting(){
@@ -43,6 +83,7 @@ public class ActivityTaskManager extends AppCompatActivity {
         npHour = (NumberPicker)findViewById(R.id.taskmanager_timehour);
         npMinute = (NumberPicker)findViewById(R.id.taskmanager_timeminute);
         npSecond = (NumberPicker)findViewById(R.id.taskmanager_timesecond);
+        ivDelete = (ImageView)findViewById(R.id.taskmanager_iv_delete);
 
         npHour.setMinValue(0);
         npHour.setMaxValue(23);
@@ -91,12 +132,25 @@ public class ActivityTaskManager extends AppCompatActivity {
                         npSecond.getValue(),
                         etEmoji.getText().toString().trim(),
                         "",
-                        2
+                        category
                 );
 
-                taskDAO.InsertNewTask(taskDO);
+                Intent intent = new Intent();
 
-                setResult(RESULT_OK);
+                if(mode == 1) {
+                    taskDAO.InsertNewTask(taskDO);
+                    intent.putExtra("tab",2);
+                }else if(mode == 2){
+                    taskDAO.UpdateTask(taskDO,num);
+                    if(category == 1){
+                        intent.putExtra("tab",1);
+                    }else{
+                        intent.putExtra("tab",2);
+                    }
+                }
+
+
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });

@@ -17,16 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
+import com.example.gogoroutine.activity_routinemanager.OnTaskItemClickListener;
 import com.example.gogoroutine.activity_taskmanager.ActivityTaskManager;
 import com.example.gogoroutine.others.TaskDAO;
 
 public class TaskAddDialog {
 
 
+
     RecyclerView recyclerView;
     Button btnDefault, btnCustom;
     TextView tvAddNew;
     Context context;
+
 
 
     public TaskAddDialog(Context context) {
@@ -80,7 +83,7 @@ public class TaskAddDialog {
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, ActivityTaskManager.class);
-                ((ActivityRoutineManager)context).startActivityForResult(intent,ActivityRoutineManager.REQUEST_TASKMANAGER);
+                ((ActivityRoutineManager)context).startActivityForResult(intent,ActivityRoutineManager.REQUEST_TASKMANAGER_OF_DIALOG);
             }
         });
 
@@ -108,6 +111,20 @@ public class TaskAddDialog {
 
         recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
         recyclerView.setAdapter(adapter);
+
+        final TaskAddDialogAdapter fAdapter = adapter;
+
+        adapter.setOnClickListener(new OnTaskItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent = new Intent(context, ActivityTaskManager.class);
+                intent.putExtra("mode",2);
+
+                TaskAddDialogAdapterDO tdo = (TaskAddDialogAdapterDO)fAdapter.getItem(position);
+                intent.putExtra("num",tdo.getTaskNum());
+                ((ActivityRoutineManager)context).startActivityForResult(intent,ActivityRoutineManager.REQUEST_TASKMANAGER_OF_DIALOG);
+            }
+        });
 
     }
 

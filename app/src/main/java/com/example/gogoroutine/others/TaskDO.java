@@ -41,4 +41,17 @@ public class TaskDO {
 
     }
 
+    public TaskDO(int num,String name, int hour,int minute, int second, String emoji, String summary, int category){
+
+        this.taskNum = num;
+        this.name = name;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+        this.emoji = emoji;
+        this.summary = summary;
+        this.category = category;
+
+    }
+
 }

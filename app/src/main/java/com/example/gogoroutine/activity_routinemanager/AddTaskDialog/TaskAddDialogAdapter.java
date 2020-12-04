@@ -12,16 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
+import com.example.gogoroutine.activity_routinemanager.OnTaskItemClickListener;
 
 import java.util.ArrayList;
 
 public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdapter.ViewHolder> {
 
+    OnTaskItemClickListener listener = null;
+
     ArrayList<TaskAddDialogAdapterDO> list = new ArrayList<TaskAddDialogAdapterDO>();
 
     Context context;
 
-    public TaskAddDialogAdapter(Context context){
+    public void setOnClickListener(OnTaskItemClickListener listener){
+        this.listener = listener;
+    }
+
+    public TaskAddDialogAdapter(Context context) {
         this.context = context;
     }
 
@@ -33,7 +40,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.item_addtaskdialog,parent,false);
+        View view = inflater.inflate(R.layout.item_addtaskdialog, parent, false);
 
         TaskAddDialogAdapter.ViewHolder vh = new TaskAddDialogAdapter.ViewHolder(view);
 
@@ -44,15 +51,16 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         final TaskAddDialogAdapterDO tDo = list.get(position);
+        final int iPosition = position;
 
-        if(tDo.getSummary().trim().equals("")){
+        if (tDo.getSummary().trim().equals("")) {
             holder.tvSummary.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.tvSummary.setText(tDo.getSummary());
         }
 
         holder.tvName.setText(tDo.getName());
-        holder.tvTime.setText(tDo.getMinute()+"분");
+        holder.tvTime.setText(tDo.getMinute() + "분");
 
         holder.tvEmoji.setText(tDo.getEmoji());
 
@@ -60,8 +68,8 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             @Override
             public void onClick(View view) {
                 //여기 아이템 +버튼 누를때 작동되는 영역
-                ActivityRoutineManager activityRoutineManager = (ActivityRoutineManager)context;
-                activityRoutineManager.adapter.addItem(-1,tDo.getTaskNum(),tDo.getName(),tDo.getHour(), tDo.getMinute(), tDo.getSecond(), tDo.getEmoji(), tDo.getSummary(), tDo.getCategory());
+                ActivityRoutineManager activityRoutineManager = (ActivityRoutineManager) context;
+                activityRoutineManager.adapter.addItem(-1, tDo.getTaskNum(), tDo.getName(), tDo.getHour(), tDo.getMinute(), tDo.getSecond(), tDo.getEmoji(), tDo.getSummary(), tDo.getCategory());
 
                 activityRoutineManager.recyclerView.setAdapter(activityRoutineManager.adapter);
 
@@ -69,7 +77,19 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             }
         });
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener !=null){
+                    listener.onItemClick(view,iPosition);
+                }
+            }
+        });
 
+    }
+
+    public Object getItem(int position){
+        return list.get(position);
     }
 
     @Override
@@ -78,7 +98,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
     }
 
 
-    public void addItem(int tasknum,String name, int hour,int minute,int second,String emoji,String summary, int category){
+    public void addItem(int tasknum, String name, int hour, int minute, int second, String emoji, String summary, int category) {
 
         TaskAddDialogAdapterDO tDo = new TaskAddDialogAdapterDO();
         tDo.setTaskNum(tasknum);
@@ -95,9 +115,10 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName,tvTime,tvSummary,tvEmoji;
+        View itemView;
+        TextView tvName, tvTime, tvSummary, tvEmoji;
         ImageView ivAdd;
 
         public ViewHolder(@NonNull View itemView) {
@@ -108,6 +129,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             tvSummary = itemView.findViewById(R.id.item_addtaskdialog_summary);
             tvEmoji = itemView.findViewById(R.id.item_addtaskdialog_emoji);
             ivAdd = itemView.findViewById(R.id.addtaskdialog_add);
+            this.itemView = itemView;
 
         }
     }

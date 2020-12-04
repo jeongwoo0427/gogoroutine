@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,13 +27,15 @@ import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDial
 import com.example.gogoroutine.activity_routinemanager.Recycler.ActivityRoutineManagerAdapter;
 import com.example.gogoroutine.activity_routinemanager.Recycler.ActivityRoutineManagerAdapterDO;
 import com.example.gogoroutine.activity_routinemanager.Recycler.ItemTouchHelperCallback;
+import com.example.gogoroutine.activity_taskmanager.ActivityTaskManager;
 import com.example.gogoroutine.others.RoutineDAO;
 import com.example.gogoroutine.others.RoutineDO;
 import com.example.gogoroutine.others.RoutineTaskDAO;
 
 public class ActivityRoutineManager extends AppCompatActivity {
 
-    public static int REQUEST_TASKMANAGER =1;
+    public final static int REQUEST_TASKMANAGER_OF_DIALOG =1;
+    final static int REQUEST_TASKMANAGER = 2;
 
     public TaskAddDialog taskdialog;
 
@@ -338,6 +339,9 @@ public class ActivityRoutineManager extends AppCompatActivity {
             }
         });
 
+      //  adapter.setOnItemClickListener(this);
+
+
 
 
     }
@@ -380,6 +384,20 @@ public class ActivityRoutineManager extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnTaskItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+                Intent intent = new Intent(ActivityRoutineManager.this,ActivityTaskManager.class);
+                ActivityRoutineManagerAdapterDO ado = adapter.list.get(position);
+                intent.putExtra("num", ado.getiTaskNum());
+                intent.putExtra("mode",2);
+                startActivityForResult(intent,REQUEST_TASKMANAGER);
+
+            }
+        });
+
     }
 
     private boolean setWholeWeeks(boolean b) {
@@ -463,14 +481,20 @@ public class ActivityRoutineManager extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_TASKMANAGER){
+        if(requestCode == REQUEST_TASKMANAGER_OF_DIALOG){
 
             if(resultCode == RESULT_OK){
-                taskdialog.setSwitchButton(2);
+                    taskdialog.setSwitchButton(data.getIntExtra("tab",2));
             }
 
+        }else if(requestCode == REQUEST_TASKMANAGER){
+            if(resultCode == RESULT_OK){
+                displayRoutineTaskList();
+                SetDeleteMode(false);
+            }
         }
 
     }
+
 
 }
