@@ -329,6 +329,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
             public void onClick(View view) {
                 taskdialog = new TaskAddDialog(ActivityRoutineManager.this);
                 taskdialog.showDialog(ActivityRoutineManager.this);
+
             }
         });
 
@@ -347,7 +348,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
     }
 
 
-    private void displayRoutineTaskList(){
+    public void displayRoutineTaskList(){
 
         adapter = new ActivityRoutineManagerAdapter();
 

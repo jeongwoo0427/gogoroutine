@@ -24,7 +24,7 @@ public class ActivityTaskManager extends AppCompatActivity {
     TaskDO taskDO;
 
     Button btnCancel, btnComplete;
-    EditText etEmoji,etName;
+    EditText etEmoji,etName,etSummary;
     NumberPicker npHour,npMinute,npSecond;
     ImageView ivDelete;
 
@@ -63,6 +63,7 @@ public class ActivityTaskManager extends AppCompatActivity {
             npHour.setValue(taskDO.getHour());
             npMinute.setValue(taskDO.getMinute());
             npSecond.setValue(taskDO.getSecond());
+            etSummary.setText(taskDO.getSummary());
             btnComplete.setText("저장");
             if(taskDO.getCategory()==1){
                 category = 1;
@@ -84,6 +85,7 @@ public class ActivityTaskManager extends AppCompatActivity {
         npMinute = (NumberPicker)findViewById(R.id.taskmanager_timeminute);
         npSecond = (NumberPicker)findViewById(R.id.taskmanager_timesecond);
         ivDelete = (ImageView)findViewById(R.id.taskmanager_iv_delete);
+        etSummary = (EditText)findViewById(R.id.taskmanager_et_summary);
 
         npHour.setMinValue(0);
         npHour.setMaxValue(23);
@@ -94,6 +96,42 @@ public class ActivityTaskManager extends AppCompatActivity {
 
 
 
+
+        ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(mode == 1){
+                    return;
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityTaskManager.this);
+                builder.setTitle("삭제");
+                builder.setMessage("해당 할일을 정말로 삭제하시겠습니까? \n삭제후 복구가 불가능합니다.");
+                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                        taskDAO.DeleteTask(num);
+                        Intent intent = new Intent();
+                        intent.putExtra("tab",2);
+                        setResult(RESULT_OK,intent);
+                        finish();
+                    }
+                });
+
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
 
         btnCancel.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -131,7 +169,7 @@ public class ActivityTaskManager extends AppCompatActivity {
                         npMinute.getValue(),
                         npSecond.getValue(),
                         etEmoji.getText().toString().trim(),
-                        "",
+                        etSummary.getText().toString().trim(),
                         category
                 );
 
@@ -145,6 +183,7 @@ public class ActivityTaskManager extends AppCompatActivity {
                     if(category == 1){
                         intent.putExtra("tab",1);
                     }else{
+
                         intent.putExtra("tab",2);
                     }
                 }

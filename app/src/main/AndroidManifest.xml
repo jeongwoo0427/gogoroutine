@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightTheme">
-        <activity android:name=".activity_taskmanager.ActivityTaskManager"></activity>
-        <activity android:name=".activity_routineshow.ActivityRoutineShow" />
-        <activity android:name=".activity_routinemanager.ActivityRoutineManager" />
-        <activity android:name=".ActivityChoose" />
-        <activity android:name=".ActivityMain">
+        <activity android:name=".activity_taskmanager.ActivityTaskManager" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity_routineshow.ActivityRoutineShow" android:screenOrientation="portrait"/>
+        <activity android:name=".activity_routinemanager.ActivityRoutineManager" android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityChoose" android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityMain" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

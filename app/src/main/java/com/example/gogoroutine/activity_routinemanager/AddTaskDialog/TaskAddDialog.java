@@ -1,7 +1,9 @@
 package com.example.gogoroutine.activity_routinemanager.AddTaskDialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -51,7 +53,22 @@ public class TaskAddDialog {
 
         displayList(1);
 
+
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                ActivityRoutineManager manager = (ActivityRoutineManager)context;
+                manager.displayRoutineTaskList();
+            }
+        });
+
+
+
+
     }
+
+
 
     void viewSetting(Dialog dialog) {
 
