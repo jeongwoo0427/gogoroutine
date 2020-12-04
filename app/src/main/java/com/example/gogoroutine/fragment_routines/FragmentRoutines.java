@@ -1,7 +1,6 @@
 package com.example.gogoroutine.fragment_routines;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gogoroutine.ActivityMain;
-import com.example.gogoroutine.others.DbOpenHelper;
+import com.example.gogoroutine.activity_main.ActivityMain;
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.others.RoutineDAO;
 

@@ -1,7 +1,9 @@
 package com.example.gogoroutine.activity_routinemanager;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
@@ -82,6 +84,21 @@ public class RoutineTaskManagerDialog {
         btnComplete.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(etName.getText().toString().trim().equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("경고");
+                    builder.setMessage("이름을 입력하세요");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    builder.show();
+                    etName.requestFocus();
+                    return;
+                }
 
                 rdo.setsName(etName.getText().toString().trim());
                 rdo.setsEmoji(etEmoji.getText().toString().trim());

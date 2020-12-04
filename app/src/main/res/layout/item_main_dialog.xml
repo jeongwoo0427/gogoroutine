@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="0dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/item_main_dialog_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:visibility="visible" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/item_main_dialog_emoji">
+
+        <TextView
+
+
+            android:id="@+id/item_main_dialog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="침구류 정리"
+            android:textColor="@color/colorDark"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorLightGray"
+            android:layout_toRightOf="@id/item_main_dialog_name"
+            android:layout_toLeftOf="@id/item_main_dialog_time"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+
+
+            android:id="@+id/item_main_dialog_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="3dp"
+            android:text="2분"
+            android:textColor="@color/colorTextGray"
+            android:textSize="14dp" />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.gogoroutine;
+package com.example.gogoroutine.activity_main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+
+import com.example.gogoroutine.R;
 
 public class ActivityChoose extends AppCompatActivity {
 

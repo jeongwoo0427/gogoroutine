@@ -57,7 +57,7 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
         //포지션에 따라 뷰에 속성 적용
         ActivityRoutineManagerAdapterDO rdo = list.get(position);
         holder.tvName.setText(rdo.getsName());
-        holder.tvTime.setText(rdo.getMinute()+"분"); //분 변환 함수 제작 필요
+        holder.tvTime.setText(ConvertTimeToString(rdo.getHour(),rdo.getMinute(),rdo.getSecond())); //분 변환 함수 제작 필요
         holder.tvEmoji.setText(rdo.getsEmoji());
         holder.btnDelete.setVisibility(isDeleteMode?View.VISIBLE:View.GONE);
         holder.btnDelete.setOnClickListener(new Button.OnClickListener() {
@@ -88,7 +88,21 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
 
     }
 
+    public String ConvertTimeToString(int hour,int minute,int second){
+        String result ="";
 
+        if(hour>0){
+            result += hour+"시간 ";
+        }
+        if(minute>0){
+            result += minute+"분 ";
+        }
+        if(second>0){
+            result += second+"초";
+        }
+
+        return result;
+    }
 
     @Override
     public int getItemCount() {

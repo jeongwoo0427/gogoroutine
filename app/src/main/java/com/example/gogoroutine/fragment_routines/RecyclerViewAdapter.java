@@ -4,15 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gogoroutine.ActivityMain;
+import com.example.gogoroutine.activity_main.ActivityMain;
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.fragment_routines.dialog_routinetask.RoutineTaskDialog;
 
 import java.util.ArrayList;
 
@@ -67,6 +67,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RoutineTaskDialog dialog = new RoutineTaskDialog(parentContext);
+                dialog.ShowDialog(routineNum);
+
+            }
+        });
+
     }
 
     @Override
@@ -102,12 +112,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         TextView tvName,tvStartTime;
         ImageButton btnDialog;
+        View itemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvStartTime = itemView.findViewById(R.id.item_tv_starttime);
             btnDialog = itemView.findViewById(R.id.item_btn_dialog);
+            this.itemView = itemView;
 
 
 

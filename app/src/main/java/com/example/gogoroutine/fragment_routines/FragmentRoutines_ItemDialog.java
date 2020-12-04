@@ -13,11 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-
-import com.example.gogoroutine.ActivityMain;
+import com.example.gogoroutine.activity_main.ActivityMain;
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 import com.example.gogoroutine.others.RoutineDAO;

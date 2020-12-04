@@ -1,4 +1,4 @@
-package com.example.gogoroutine;
+package com.example.gogoroutine.activity_main;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 import com.example.gogoroutine.fragment_routines.FragmentRoutines;
 import com.example.gogoroutine.fragment_status.FragmentStatus;

@@ -60,7 +60,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
         }
 
         holder.tvName.setText(tDo.getName());
-        holder.tvTime.setText(tDo.getMinute() + "분");
+        holder.tvTime.setText(ConvertTimeToString(tDo.getHour(),tDo.getMinute(),tDo.getSecond()));
 
         holder.tvEmoji.setText(tDo.getEmoji());
 
@@ -86,6 +86,22 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             }
         });
 
+    }
+
+    public String ConvertTimeToString(int hour,int minute,int second){
+        String result ="";
+
+        if(hour>0){
+            result += hour+"시간 ";
+        }
+        if(minute>0){
+            result += minute+"분 ";
+        }
+        if(second>0){
+            result += second+"초";
+        }
+
+        return result;
     }
 
     public Object getItem(int position){

@@ -76,10 +76,7 @@ public class TaskDAO {
         dbOpenHelper = new DbOpenHelper(context);
         db = dbOpenHelper.getWritableDatabase();
 
-        String qry = "DELETE FROM routineTask WHERE taskNum="+tasknum;
-        db.execSQL(qry);
-
-        qry = "DELETE FROM task WHERE taskNum = "+tasknum;
+        String qry = "DELETE FROM task WHERE taskNum = "+tasknum;
         db.execSQL(qry);
 
 
