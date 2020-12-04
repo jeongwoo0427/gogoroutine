@@ -69,7 +69,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             public void onClick(View view) {
                 //여기 아이템 +버튼 누를때 작동되는 영역
                 ActivityRoutineManager activityRoutineManager = (ActivityRoutineManager) context;
-                activityRoutineManager.adapter.addItem(-1, tDo.getTaskNum(), tDo.getName(), tDo.getHour(), tDo.getMinute(), tDo.getSecond(), tDo.getEmoji(), tDo.getSummary(), tDo.getCategory());
+                activityRoutineManager.adapter.addItem(-1,  tDo.getName(), tDo.getHour(), tDo.getMinute(), tDo.getSecond(), tDo.getEmoji(), tDo.getSummary(), -1);
 
                 activityRoutineManager.recyclerView.setAdapter(activityRoutineManager.adapter);
 

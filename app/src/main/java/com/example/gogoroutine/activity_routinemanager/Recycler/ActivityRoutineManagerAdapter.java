@@ -97,18 +97,17 @@ public class ActivityRoutineManagerAdapter extends RecyclerView.Adapter<Activity
 
     public Object getItem(int position){return list.get(position);}
 
-    public void addItem(int routineNum, int taskNum, String name, int hour,int minute, int second,String emoji,String summary,int category){
+    public void addItem(int routineNum, String name, int hour,int minute, int second,String emoji,String summary,int order){
 
         ActivityRoutineManagerAdapterDO rdo = new ActivityRoutineManagerAdapterDO();
         rdo.setiRoutineNum(routineNum);
-        rdo.setiTaskNum(taskNum);
         rdo.setsName(name);
         rdo.setHour(hour);
         rdo.setMinute(minute);
         rdo.setSecond(second);
         rdo.setsEmoji(emoji);
         rdo.setsSummary(summary);
-        rdo.setiCategory(category);
+        rdo.setOrder(order);
 
         list.add(rdo);
     }

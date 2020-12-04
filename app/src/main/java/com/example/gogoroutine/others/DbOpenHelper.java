@@ -11,7 +11,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     //SQLite 접속을 위한 클래스
 
     final static String DB_NAME = "gogoroutine.db";
-    final static int DB_VERSION = 39;
+    final static int DB_VERSION = 40;
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -83,19 +83,23 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         //루틴에 대한 할일 기본 설정
         {
             qry = "CREATE TABLE routineTask(" +
-                    "routineNum INTEGER NOT NULL," +
-                    "taskNum INTEGER NOT NULL," +
-                    "taskOrder INTEGER NOT NULL," +
-                    "CONSTRAINT fk_routine FOREIGN KEY (routineNum) REFERENCES routine(routineNum)," +
-                    "CONSTRAINT fk_task FOREIGN KEY (taskNum) REFERENCES task(taskNum));";
+                    "routineNum INTEGER," +
+                    "name TEXT NOT NULL," +
+                    "hour INT NOT NULL," +
+                    "minute INT NOT NULL,"+
+                    "second INT NOT NULL,"+
+                    "emoji TEXT NOT NULL," +
+                    "summary TEXT NOT NULL," +
+                    "taskOrder INT NOT NULL," +
+                    "CONSTRAINT fk_routine FOREIGN KEY (routineNum) REFERENCES routine(routineNum))";
             sqLiteDatabase.execSQL(qry);
 
 
-            qry = "INSERT INTO routineTask(routineNum,taskNum,taskOrder) VALUES (1,1,2)";
+            qry = "INSERT INTO routineTask(routineNum,name,hour,minute,second,emoji,summary,taskOrder) VALUES (1,'아침헬스',0,10,0,'','화이팅',1)";
             sqLiteDatabase.execSQL(qry);
-            qry = "INSERT INTO routineTask(routineNum,taskNum,taskOrder) VALUES (1,2,1)";
+            qry = "INSERT INTO routineTask(routineNum,name,hour,minute,second,emoji,summary,taskOrder) VALUES (1,'으쌰으쌰',0,5,0,'','헬',2)";
             sqLiteDatabase.execSQL(qry);
-            qry = "INSERT INTO routineTask(routineNum,taskNum,taskOrder) VALUES (1,3,3)";
+            qry = "INSERT INTO routineTask(routineNum,name,hour,minute,second,emoji,summary,taskOrder) VALUES (1,'오 좋다',0,15,0,'','지옥',3)";
             sqLiteDatabase.execSQL(qry);
         }
 

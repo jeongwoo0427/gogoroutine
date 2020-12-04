@@ -31,6 +31,7 @@ import com.example.gogoroutine.activity_taskmanager.ActivityTaskManager;
 import com.example.gogoroutine.others.RoutineDAO;
 import com.example.gogoroutine.others.RoutineDO;
 import com.example.gogoroutine.others.RoutineTaskDAO;
+import com.example.gogoroutine.others.RoutineTaskDO;
 
 public class ActivityRoutineManager extends AppCompatActivity {
 
@@ -124,7 +125,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
         }
 
-        displayRoutineTaskList();
+        DisplayRoutineTaskList();
 
 
     }
@@ -308,7 +309,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
                     int order = 1;
 
                     for(ActivityRoutineManagerAdapterDO ado : adapter.list){
-                        routineTaskDAO.InsertNewRoutineTask(iRoutineNum,ado.getiTaskNum(),order);
+                        routineTaskDAO.InsertNewRoutineTask(iRoutineNum,ado.getsName(),ado.getHour(),ado.getMinute(),ado.getSecond(),ado.getsEmoji(),ado.getsSummary(),order);
                         order++;
                     }
 
@@ -348,7 +349,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
     }
 
 
-    public void displayRoutineTaskList(){
+    public void DisplayRoutineTaskList(){
 
         adapter = new ActivityRoutineManagerAdapter();
 
@@ -361,15 +362,15 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
         while(cursor.moveToNext()){
             adapter.addItem(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getString(2),
+                   cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2),
                     cursor.getInt(3),
                     cursor.getInt(4),
-                    cursor.getInt(5),
+                    cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7),
-                    cursor.getInt(8));
+                    cursor.getInt(7)
+                    );
         }
 
         //테스트 코드
@@ -390,11 +391,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
 
-                Intent intent = new Intent(ActivityRoutineManager.this,ActivityTaskManager.class);
-                ActivityRoutineManagerAdapterDO ado = adapter.list.get(position);
-                intent.putExtra("num", ado.getiTaskNum());
-                intent.putExtra("mode",2);
-                startActivityForResult(intent,REQUEST_TASKMANAGER);
+                RoutineTaskManagerDialog dialog = new RoutineTaskManagerDialog(ActivityRoutineManager.this);
+                dialog.ShowDialog((ActivityRoutineManagerAdapterDO)adapter.getItem(position),position);
 
             }
         });
@@ -478,6 +476,11 @@ public class ActivityRoutineManager extends AppCompatActivity {
         return convertedTime;
     }
 
+    void ApplyDialogResult(ActivityRoutineManagerAdapterDO ado , int position){
+        adapter.list.set(position,ado);
+        adapter.notifyItemChanged(position);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -490,7 +493,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
         }else if(requestCode == REQUEST_TASKMANAGER){
             if(resultCode == RESULT_OK){
-                displayRoutineTaskList();
+
                 SetDeleteMode(false);
             }
         }

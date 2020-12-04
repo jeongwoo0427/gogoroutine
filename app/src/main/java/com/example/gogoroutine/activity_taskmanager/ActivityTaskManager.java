@@ -14,6 +14,8 @@ import android.widget.NumberPicker;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
+import com.example.gogoroutine.others.RoutineTaskDAO;
+import com.example.gogoroutine.others.RoutineTaskDO;
 import com.example.gogoroutine.others.TaskDAO;
 import com.example.gogoroutine.others.TaskDO;
 
@@ -22,17 +24,17 @@ public class ActivityTaskManager extends AppCompatActivity {
 
     TaskDAO taskDAO;
     TaskDO taskDO;
+    RoutineTaskDAO routineTaskDAO;
+    RoutineTaskDO routineTaskDO;
 
     Button btnCancel, btnComplete;
-    EditText etEmoji,etName,etSummary;
-    NumberPicker npHour,npMinute,npSecond;
+    EditText etEmoji, etName, etSummary;
+    NumberPicker npHour, npMinute, npSecond;
     ImageView ivDelete;
 
     int num = 0;
     int mode = 1;
     int category = 2;
-
-
 
 
     @Override
@@ -41,51 +43,51 @@ public class ActivityTaskManager extends AppCompatActivity {
         setContentView(R.layout.activity_task_manager);
 
         Intent intent = getIntent();
-        mode = intent.getIntExtra("mode",1);
+        mode = intent.getIntExtra("mode", 1);
         taskDAO = new TaskDAO(this);
+        routineTaskDAO = new RoutineTaskDAO(this);
 
         ViewSetting();
 
         //새글
-        if(mode==1) {
+        if (mode == 1) {
             category = 2;
             ivDelete.setVisibility(View.GONE);
 
 
-
-
-        }else if(mode == 2){ //수정
+        } else if (mode == 2) { //수정
             ivDelete.setVisibility(View.VISIBLE);
-            num = intent.getIntExtra("num",0);
-            taskDO = taskDAO.GetTaskDetail(num);
-            etName.setText(taskDO.getName());
-            etEmoji.setText(taskDO.getEmoji());
-            npHour.setValue(taskDO.getHour());
-            npMinute.setValue(taskDO.getMinute());
-            npSecond.setValue(taskDO.getSecond());
-            etSummary.setText(taskDO.getSummary());
-            btnComplete.setText("저장");
-            if(taskDO.getCategory()==1){
-                category = 1;
-                etName.setEnabled(false);
-                ivDelete.setVisibility(View.GONE);
-            }
+            num = intent.getIntExtra("num", 0);
 
+                taskDO = taskDAO.GetTaskDetail(num);
+                etName.setText(taskDO.getName());
+                etEmoji.setText(taskDO.getEmoji());
+                npHour.setValue(taskDO.getHour());
+                npMinute.setValue(taskDO.getMinute());
+                npSecond.setValue(taskDO.getSecond());
+                etSummary.setText(taskDO.getSummary());
+                if (taskDO.getCategory() == 1) {
+                    category = 1;
+                    etName.setEnabled(false);
+                    ivDelete.setVisibility(View.GONE);
+                }
+
+            btnComplete.setText("저장");
         }
 
 
     }
 
-    void ViewSetting(){
-        btnCancel = (Button)findViewById(R.id.taskmanager_btn_cancel);
-        btnComplete = (Button)findViewById(R.id.taskmanager_btn_complete);
-        etEmoji = (EditText)findViewById(R.id.taskmanager_emoji);
-        etName = (EditText)findViewById(R.id.taskmanager_name);
-        npHour = (NumberPicker)findViewById(R.id.taskmanager_timehour);
-        npMinute = (NumberPicker)findViewById(R.id.taskmanager_timeminute);
-        npSecond = (NumberPicker)findViewById(R.id.taskmanager_timesecond);
-        ivDelete = (ImageView)findViewById(R.id.taskmanager_iv_delete);
-        etSummary = (EditText)findViewById(R.id.taskmanager_et_summary);
+    void ViewSetting() {
+        btnCancel = (Button) findViewById(R.id.taskmanager_btn_cancel);
+        btnComplete = (Button) findViewById(R.id.taskmanager_btn_complete);
+        etEmoji = (EditText) findViewById(R.id.taskmanager_emoji);
+        etName = (EditText) findViewById(R.id.taskmanager_name);
+        npHour = (NumberPicker) findViewById(R.id.taskmanager_timehour);
+        npMinute = (NumberPicker) findViewById(R.id.taskmanager_timeminute);
+        npSecond = (NumberPicker) findViewById(R.id.taskmanager_timesecond);
+        ivDelete = (ImageView) findViewById(R.id.taskmanager_iv_delete);
+        etSummary = (EditText) findViewById(R.id.taskmanager_et_summary);
 
         npHour.setMinValue(0);
         npHour.setMaxValue(23);
@@ -95,13 +97,11 @@ public class ActivityTaskManager extends AppCompatActivity {
         npSecond.setMaxValue(59);
 
 
-
-
         ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(mode == 1){
+                if (mode == 1) {
                     return;
                 }
 
@@ -115,8 +115,8 @@ public class ActivityTaskManager extends AppCompatActivity {
 
                         taskDAO.DeleteTask(num);
                         Intent intent = new Intent();
-                        intent.putExtra("tab",2);
-                        setResult(RESULT_OK,intent);
+                        intent.putExtra("tab", 2);
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
                 });
@@ -144,7 +144,7 @@ public class ActivityTaskManager extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(etName.getText().toString().trim().equals("")){
+                if (etName.getText().toString().trim().equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ActivityTaskManager.this);
 
                     builder.setTitle("주의");
@@ -162,37 +162,48 @@ public class ActivityTaskManager extends AppCompatActivity {
 
                 }
 
-                taskDAO = new TaskDAO(ActivityTaskManager.this);
-                taskDO = new TaskDO(
-                        etName.getText().toString().trim(),
-                        npHour.getValue(),
-                        npMinute.getValue(),
-                        npSecond.getValue(),
-                        etEmoji.getText().toString().trim(),
-                        etSummary.getText().toString().trim(),
-                        category
-                );
 
-                Intent intent = new Intent();
+                TaskSave();
 
-                if(mode == 1) {
-                    taskDAO.InsertNewTask(taskDO);
-                    intent.putExtra("tab",2);
-                }else if(mode == 2){
-                    taskDAO.UpdateTask(taskDO,num);
-                    if(category == 1){
-                        intent.putExtra("tab",1);
-                    }else{
-
-                        intent.putExtra("tab",2);
-                    }
-                }
-
-
-                setResult(RESULT_OK,intent);
-                finish();
             }
         });
 
+
+
     }
+
+    void TaskSave(){
+
+        taskDAO = new TaskDAO(ActivityTaskManager.this);
+        taskDO = new TaskDO(
+                etName.getText().toString().trim(),
+                npHour.getValue(),
+                npMinute.getValue(),
+                npSecond.getValue(),
+                etEmoji.getText().toString().trim(),
+                etSummary.getText().toString().trim(),
+                category
+        );
+
+        Intent intent = new Intent();
+
+        if (mode == 1) {
+            taskDAO.InsertNewTask(taskDO);
+            intent.putExtra("tab", 2);
+        } else if (mode == 2) {
+            taskDAO.UpdateTask(taskDO, num);
+            if (category == 1) {
+                intent.putExtra("tab", 1);
+            } else {
+
+                intent.putExtra("tab", 2);
+            }
+        }
+
+
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+
 }

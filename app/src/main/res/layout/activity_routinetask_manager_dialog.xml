@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="450dp"
+    android:layout_gravity="center"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/shape_dialogbackground"
+
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+    <RelativeLayout
+        android:id="@+id/addtaskdialog_toplinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        >
+
+        <Button
+            android:id="@+id/addtaskdialog_tg_default"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="80dp"
+            android:layout_height="42dp"
+            android:text="기본"
+            android:textColor="@color/colorDark"
+            android:background="@drawable/shape_button_white"
+            android:stateListAnimator="@null"/>
+
+        <Button
+            android:id="@+id/addtaskdialog_tg_custom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp"
+            android:layout_toRightOf="@id/addtaskdialog_tg_default"
+            android:layout_width="80dp"
+            android:layout_height="42dp"
+            android:text="사용자"
+            android:textColor="@color/colorLightGray"
+            android:background="@drawable/shape_button_darkblue"
+            android:stateListAnimator="@null"/>
+
+        <TextView
+            android:id="@+id/addtaskdialog_addnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+직접추가"
+            android:layout_alignParentRight="true"
+            android:textSize="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/colorTextGray"
+            android:textStyle="bold"/>
+
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/addtaskdialog_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/addtaskdialog_toplinear"
+        />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
