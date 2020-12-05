@@ -131,6 +131,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_below="@id/item_routine_rl1"
                 android:background="@color/colorLightGray"
+                android:visibility="gone"
                 />
 
 
@@ -142,6 +143,7 @@
                 android:gravity="center_vertical"
 
                 android:layout_marginBottom="15dp"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -162,6 +164,7 @@
                     android:checked="false"
                     android:theme="@style/SwitchTheme"
 
+
                     />
 
 
@@ -174,6 +177,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+
+                android:visibility="gone"
                 >
 
             <LinearLayout
@@ -183,6 +188,7 @@
 
                 android:gravity="center_vertical"
                 android:weightSum="8"
+
                 >
 
                 <TextView
@@ -219,6 +225,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center_vertical"
                 android:weightSum="8"
+
                 >
 
                 <TextView
@@ -267,7 +274,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+
+                >
             <ToggleButton
                 android:id="@+id/routinemanager_tg_sound"
                 android:layout_marginLeft="2dp"
@@ -314,7 +323,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="하위 할일"
+                    android:text="하위 할 일"
                     android:textSize="30dp"
                     android:textStyle="bold"
                     android:textColor="@color/colorLightGray"
@@ -374,6 +383,7 @@
                 android:layout_below="@id/routinemanager_rl2"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="15dp"
+
                 />
 
 
@@ -388,7 +398,8 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         >
 
         <Button

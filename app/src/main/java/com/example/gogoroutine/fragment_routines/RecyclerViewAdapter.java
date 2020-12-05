@@ -71,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
 
-                RoutineTaskDialog dialog = new RoutineTaskDialog(parentContext);
+                RoutineTaskDialog dialog = new RoutineTaskDialog(parentContext,fragmentRoutines,activityMain);
                 dialog.ShowDialog(routineNum);
 
             }

@@ -46,7 +46,7 @@
             android:padding="3dp"
             android:text="침구류 정리"
             android:textColor="@color/colorDark"
-            android:textSize="20dp" />
+            android:textSize="17dp" />
 
         <TextView
 
@@ -54,11 +54,11 @@
             android:id="@+id/item_routinemanager_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/item_routinemanager_name"
+            android:layout_alignParentRight="true"
             android:padding="3dp"
             android:text="2분"
             android:textColor="@color/colorTextGray"
-            android:textSize="20dp" />
+            android:textSize="17dp" />
 
 
     </RelativeLayout>

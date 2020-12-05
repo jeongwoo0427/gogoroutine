@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
+
         >
 
         <RelativeLayout
@@ -42,8 +43,9 @@
             android:text="아침 루틴"
             android:layout_centerHorizontal="true"
             android:textSize="20dp"
-
-            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/main_dialog_v_left"
+            android:layout_toLeftOf="@id/main_dialog_iv_more"
+            android:textAlignment="center"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"/>
         <TextView
@@ -59,6 +61,22 @@
             android:textColor="@color/colorTextGray"
             />
 
+        <ImageView
+            android:id="@+id/main_dialog_iv_more"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_more_horiz_24"
+            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"/>
+
+        <View
+            android:id="@+id/main_dialog_v_left"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            />
 
 
     </RelativeLayout>
@@ -82,9 +100,24 @@
         android:layout_marginTop="10dp"
         android:paddingTop="10dp"
         android:layout_below="@+id/main_dialog_view1"
+        android:paddingBottom="80dp"
         />
 
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/main_dialog_btn_go"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_button_darkblue"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="GO!"
+        android:textSize="15dp"
+        android:elevation="8dp"
+        android:textColor="@color/colorLightGray"/>
+
 
 </RelativeLayout>
