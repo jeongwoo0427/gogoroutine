@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gogoroutine">
 
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightTheme">
+
+        <service android:name=".services.UndeadService"/>
+        <receiver android:name=".services.AlarmReceiver"/>
+
         <activity android:name=".activity_taskmanager.ActivityTaskManager" android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity_routineshow.ActivityRoutineShow" android:screenOrientation="portrait"/>
+        <activity android:name=".activity_routineshow.ActivityRoutineShow" android:screenOrientation="portrait" android:launchMode="singleInstance"/>
         <activity android:name=".activity_routinemanager.ActivityRoutineManager" android:screenOrientation="portrait" /> <!--android:excludeFromRecents="true"-->
         <activity android:name=".activity_main.ActivityChoose" android:screenOrientation="portrait"/>
         <activity android:name=".activity_main.ActivityMain" android:screenOrientation="portrait" >

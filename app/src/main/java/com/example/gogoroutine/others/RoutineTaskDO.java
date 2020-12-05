@@ -29,6 +29,8 @@ public class RoutineTaskDO {
     public void setSummary(String summary){this.summary = summary;}
     public void setOrder(int order){this.order = order;}
 
+    public RoutineTaskDO(){}
+
     public RoutineTaskDO(String name, int hour, int minute, int second, String emoji, String summary, int order){
 
         this.name = name;
