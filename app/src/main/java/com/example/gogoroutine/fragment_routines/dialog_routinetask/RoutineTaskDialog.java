@@ -2,6 +2,7 @@ package com.example.gogoroutine.fragment_routines.dialog_routinetask;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_main.ActivityMain;
+import com.example.gogoroutine.activity_routineshow.ActivityRoutineShow;
 import com.example.gogoroutine.fragment_routines.FragmentRoutines;
 import com.example.gogoroutine.fragment_routines.FragmentRoutines_ItemDialog;
 import com.example.gogoroutine.others.RoutineDAO;
@@ -103,6 +105,15 @@ public class RoutineTaskDialog {
             public void onClick(View view) {
                 FragmentRoutines_ItemDialog itemDialog = new FragmentRoutines_ItemDialog(context, fragmentRoutines, activityMain);
                 itemDialog.showDialog(iRoutineNum);
+                dialog.dismiss();
+            }
+        });
+
+        btnGo.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activityMain, ActivityRoutineShow.class);
+                activityMain.startActivity(intent);
                 dialog.dismiss();
             }
         });

@@ -11,9 +11,9 @@
         android:theme="@style/LightTheme">
         <activity android:name=".activity_taskmanager.ActivityTaskManager" android:screenOrientation="portrait"></activity>
         <activity android:name=".activity_routineshow.ActivityRoutineShow" android:screenOrientation="portrait"/>
-        <activity android:name=".activity_routinemanager.ActivityRoutineManager" android:screenOrientation="portrait" android:excludeFromRecents="true"/>
+        <activity android:name=".activity_routinemanager.ActivityRoutineManager" android:screenOrientation="portrait" /> <!--android:excludeFromRecents="true"-->
         <activity android:name=".activity_main.ActivityChoose" android:screenOrientation="portrait"/>
-        <activity android:name=".activity_main.ActivityMain" android:screenOrientation="portrait" android:excludeFromRecents="true">
+        <activity android:name=".activity_main.ActivityMain" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
