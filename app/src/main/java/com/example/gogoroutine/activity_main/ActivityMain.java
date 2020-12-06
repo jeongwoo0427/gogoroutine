@@ -21,11 +21,13 @@ import android.widget.Toast;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
+import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
 import com.example.gogoroutine.fragment_routines.FragmentRoutines;
 import com.example.gogoroutine.fragment_status.FragmentStatus;
 
 public class ActivityMain extends AppCompatActivity {
 
+    public final static int REQUEST_TASKMANAGER_OF_DIALOG = 3;
     private final static int ROUTINEMANAGER_REQUEST_CODE = 2;
     private final static int CHOOSE_REQUEST_CODE = 1;
 
@@ -37,6 +39,8 @@ public class ActivityMain extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentRoutines fragmentRountines;
     private FragmentStatus fragmentStatus;
+
+    private TaskAddDialog taskDialog;
 
 
     ImageButton btnRoutines, btnStatus,btnAdd,btnAddRoutine,btnAddGo;
@@ -126,7 +130,11 @@ public class ActivityMain extends AppCompatActivity {
                 startActivityForResult(intent,ROUTINEMANAGER_REQUEST_CODE);
 
             }else if(resultCode==CHOOSE_RESULT_GO){
-                Toast.makeText(getApplicationContext(),"GO",Toast.LENGTH_LONG).show();
+
+                taskDialog  = new TaskAddDialog(ActivityMain.this,0);
+                taskDialog.showDialog();
+
+
             }
 
         }
@@ -139,6 +147,13 @@ public class ActivityMain extends AppCompatActivity {
 
                 fragmentRountines.DisplayRoutineList();
 
+
+            }
+
+        }else if(requestCode == REQUEST_TASKMANAGER_OF_DIALOG){
+
+            if(resultCode == RESULT_OK){
+                taskDialog.setSwitchButton(data.getIntExtra("tab",2));
 
             }
 

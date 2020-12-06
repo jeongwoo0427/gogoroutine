@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="할일 추가"
+        android:text="습관 관리"
         android:translationX="80dp"
         android:translationY="60dp"
         android:layout_centerInParent="true"

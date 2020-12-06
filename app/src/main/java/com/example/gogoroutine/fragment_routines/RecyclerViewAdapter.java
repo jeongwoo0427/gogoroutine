@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,10 +54,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         RecyclerViewAdapterDO rdo = mData.get(position);
         holder.tvName.setText(rdo.getName());
-        holder.tvStartTime.setText(convertTime(rdo.getStartHour(),rdo.getStartMinute()));
+       // holder.tvStartTime.setText(convertTime(rdo.getStartHour(),rdo.getStartMinute())); 업데이트 전까지는 임시로 요일을 표시하도록 함
+        holder.tvStartTime.setText(ConvertWeeks(rdo.getSelectedWeeks()));
         final int routineNum = rdo.getRoutineNum();
 
-        holder.btnDialog.setOnClickListener(new ImageButton.OnClickListener() {
+        holder.ivDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -111,14 +113,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //뷰 홀더를 오버라이드하여 위에서 아이템에 대한 객체들을 지정할 때 이 클래스를 사용하도록 함
 
         TextView tvName,tvStartTime;
-        ImageButton btnDialog;
+        ImageView ivDialog;
         View itemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvStartTime = itemView.findViewById(R.id.item_tv_starttime);
-            btnDialog = itemView.findViewById(R.id.item_btn_dialog);
+            ivDialog = itemView.findViewById(R.id.item_iv_dialog);
             this.itemView = itemView;
 
 
@@ -126,6 +128,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+
+    private String ConvertWeeks(String weeks){
+
+        String convertedWeek="";
+
+        if(weeks.contains("2")){
+            convertedWeek +="월 ";
+        }
+        if(weeks.contains("3")){
+            convertedWeek +="화 ";
+        }
+        if(weeks.contains("4")){
+            convertedWeek +="수 ";
+        }
+        if(weeks.contains("5")){
+            convertedWeek +="목 ";
+        }
+        if(weeks.contains("6")){
+            convertedWeek +="금 ";
+        }
+        if(weeks.contains("7")){
+            convertedWeek +="토 ";
+        }
+        if(weeks.contains("1")){
+            convertedWeek +="일 ";
+        }
+
+        return convertedWeek;
+    }
 
     private String convertTime(int hour, int minute) {
 

@@ -24,6 +24,8 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
 
     Context context;
 
+    int from = 1;//기본은 루틴메이져에서 호출한 것으로 가정
+
     public void setOnClickListener(OnTaskItemClickListener listener){
         this.listener = listener;
     }
@@ -63,6 +65,12 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
         holder.tvTime.setText(ConvertTimeToString(tDo.getHour(),tDo.getMinute(),tDo.getSecond()));
 
         holder.tvEmoji.setText(tDo.getEmoji());
+
+        if(from == 1){
+            holder.ivAdd.setVisibility(View.VISIBLE);
+        }else{
+            holder.ivAdd.setVisibility(View.GONE);
+        }
 
         holder.ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override

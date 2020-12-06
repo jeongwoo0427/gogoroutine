@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.gogoroutine.ActivityComplete;
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_main.ActivityMain;
 import com.example.gogoroutine.others.RoutineTaskDAO;
@@ -186,7 +187,22 @@ public class ActivityRoutineShow extends AppCompatActivity {
 
 
                 }else if(iCurrentIndex >=iLastIndex){
-                    ShowExitDialog();
+
+                    // Get instance of Vibrator from current Context
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(400);
+
+                    StopCountDownTimer();
+                    StopStopWatch();
+                    if(notificationManager != null) {
+                        notificationManager.cancelAll();
+                    }
+
+                    Intent intent = new Intent(ActivityRoutineShow.this, ActivityComplete.class);
+                    startActivity(intent);
+                    finish();
+
+
                 }
             }
         });
@@ -260,6 +276,7 @@ public class ActivityRoutineShow extends AppCompatActivity {
                 lCurrentTime = l;
 
                 builder.setContentTitle(hmsTimeFormatter(l));
+                builder.setContentText(currentRdo.getEmoji()+currentRdo.getName());
                 notificationManager.notify(1, builder.build());
             }
 
@@ -304,6 +321,7 @@ public class ActivityRoutineShow extends AppCompatActivity {
                         long lOverTime = iOverTime*1000;
                         tvTime.setText("+"+hmsTimeFormatter(lOverTime));
                         builder.setContentTitle(hmsTimeFormatter(lOverTime)+" 초과");
+                        builder.setContentText(currentRdo.getEmoji()+currentRdo.getName());
                         notificationManager.notify(1, builder.build());
                     }
                 });

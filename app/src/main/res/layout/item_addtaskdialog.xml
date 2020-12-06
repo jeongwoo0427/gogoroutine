@@ -10,7 +10,7 @@
     android:elevation="4dp"
     android:paddingLeft="10dp"
     android:paddingTop="5dp"
-    android:paddingRight="10dp"
+    android:paddingRight="0dp"
     android:paddingBottom="5dp"
 
     >
@@ -79,13 +79,13 @@
 
     <ImageView
         android:id="@+id/addtaskdialog_add"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
         android:src="@drawable/ic_baseline_add_circle_outline_24"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
+
             />
 
 

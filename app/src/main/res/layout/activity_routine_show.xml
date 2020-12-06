@@ -45,7 +45,7 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:fontFamily="sans-serif"
-            android:textSize="40dp"/>
+            android:textSize="30dp"/>
 
         <TextView
             android:padding="10dp"
@@ -57,7 +57,7 @@
             android:layout_marginTop="10dp"
             android:text="한개만 더! 할 수 있잖아!"
             android:textColor="@color/colorTextGray"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
 
 
 

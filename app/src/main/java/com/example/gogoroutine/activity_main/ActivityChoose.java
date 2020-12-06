@@ -11,11 +11,15 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.example.gogoroutine.R;
+import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
 
 public class ActivityChoose extends AppCompatActivity {
 
     private final static int CHOOSE_RESULT_ROUTINE = 1;
     private final static int CHOOSE_RESULT_GO =2;
+
+
+
 
     ImageButton btnCancel,btnRoutine,btnGo;
     RelativeLayout rl;

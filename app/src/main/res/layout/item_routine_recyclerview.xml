@@ -55,15 +55,16 @@
         android:layout_centerInParent="true"
         android:text="AM 04:20 ~ AM 05:40"/>
 
-        <ImageButton
-            android:layout_width="35dp"
+        <ImageView
+            android:layout_width="50dp"
             android:layout_height="35dp"
-            android:id="@+id/item_btn_dialog"
-            android:background="@drawable/ic_baseline_more_horiz_24"
+            android:id="@+id/item_iv_dialog"
+            android:src="@drawable/ic_baseline_more_horiz_24"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:layout_marginRight="20dp"
+            android:scaleType="center"
+
+            android:layout_marginRight="5dp"
 
             />
 

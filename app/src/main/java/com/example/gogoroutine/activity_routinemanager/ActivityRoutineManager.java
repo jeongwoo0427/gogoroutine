@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -218,7 +219,7 @@ public class ActivityRoutineManager extends AppCompatActivity {
                 if(adapter.isDeleteMode) {
                     SetDeleteMode(adapter.isDeleteMode?false:true);
                 }else{
-                    finish();
+                    ShowExitDialog();
                 }
             }
         });
@@ -328,8 +329,8 @@ public class ActivityRoutineManager extends AppCompatActivity {
         ivTaskAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                taskdialog = new TaskAddDialog(ActivityRoutineManager.this);
-                taskdialog.showDialog(ActivityRoutineManager.this);
+                taskdialog = new TaskAddDialog(ActivityRoutineManager.this,1);
+                taskdialog.showDialog();
 
             }
         });
@@ -498,6 +499,33 @@ public class ActivityRoutineManager extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        ShowExitDialog();
+
+    }
+
+    private void ShowExitDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("취소");
+        builder.setMessage("진행중인 사항이 저장되지 않습니다.\n정말로 취소하시겠습니까?");
+        builder.setPositiveButton("YES",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                return;
+            }
+        });
+
+        builder.show();
     }
 
 

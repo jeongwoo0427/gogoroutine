@@ -17,6 +17,7 @@ public class RoutineTaskDialogAdapter extends RecyclerView.Adapter<RoutineTaskDi
 
     ArrayList<RoutineTaskDialogAdapterDO> list = new ArrayList<RoutineTaskDialogAdapterDO>();
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +39,7 @@ public class RoutineTaskDialogAdapter extends RecyclerView.Adapter<RoutineTaskDi
         holder.tvName.setText(ado.getsName());
         holder.tvTime.setText(ConvertTimeToString(ado.getHour(),ado.getMinute(),ado.getSecond()));
         holder.tvEmoji.setText(ado.getsEmoji());
+
 
 
     }

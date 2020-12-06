@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/complete_tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="루틴 성공!"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        />
+
+    <Button
+        android:id="@+id/complete_btn_exit"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:background="@drawable/shape_button_darkblue"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="종료"
+        android:textColor="@color/colorLightGray"
+        android:textSize="20dp"
+        />
+
+
+</RelativeLayout>
