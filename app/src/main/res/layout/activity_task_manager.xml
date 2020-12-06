@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout
+    android:id="@+id/taskmanager_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -66,9 +67,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:textAlignment="center"
+        android:cursorVisible="false"
         android:text="🏁"
         android:textSize="80dp"
-        android:background="@drawable/shape_edittext"/>
+        android:background="@drawable/shape_edittext"
+       />
+
+
+
 
     <TextView
         android:id="@+id/taskmanager_tv_emoji"

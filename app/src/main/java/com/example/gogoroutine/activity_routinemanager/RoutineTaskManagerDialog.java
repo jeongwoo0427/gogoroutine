@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,7 +16,10 @@ import android.widget.NumberPicker;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.Recycler.ActivityRoutineManagerAdapterDO;
-
+import com.example.gogoroutine.activity_taskmanager.ActivityTaskManager;
+import com.github.data5tream.emojilib.EmojiGridView;
+import com.github.data5tream.emojilib.EmojiPopup;
+import com.github.data5tream.emojilib.emoji.Emojicon;
 
 
 public class RoutineTaskManagerDialog {
@@ -28,6 +32,12 @@ public class RoutineTaskManagerDialog {
     Context context;
 
     ActivityRoutineManagerAdapterDO rdo;
+
+
+    View rootView;
+    EmojiPopup popup;
+    InputMethodManager inputMethodManager;
+
 
     public RoutineTaskManagerDialog(Context context){
         this.context = context;
@@ -44,7 +54,7 @@ public class RoutineTaskManagerDialog {
         dialog.show();
 
         ViewSetting(dialog,position);
-
+        EmojiKeyboardSetting(dialog);
         etEmoji.setText(rdo.getsEmoji());
         etName.setText(rdo.getsName());
         npHour.setValue(rdo.getHour());
@@ -55,6 +65,8 @@ public class RoutineTaskManagerDialog {
         ivDelete.setVisibility(View.GONE);
 
     }
+
+
 
     void ViewSetting(final Dialog dialog,final int position) {
         btnCancel = (Button) dialog.findViewById(R.id.taskmanager_btn_cancel);
@@ -115,5 +127,87 @@ public class RoutineTaskManagerDialog {
         });
 
     }
+
+    private void EmojiKeyboardSetting(Dialog dialog){
+        rootView = dialog.findViewById(R.id.taskmanager_root);
+        popup = new EmojiPopup(rootView, context, context.getResources().getColor(R.color.colorAccent));
+        inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        popup.setSizeForSoftKeyboard();
+
+
+        popup.setOnSoftKeyboardOpenCloseListener(new EmojiPopup.OnSoftKeyboardOpenCloseListener() {
+
+            @Override
+            public void onKeyboardOpen(int keyBoardHeight) {
+
+                if(etEmoji.isFocused()) {
+                    popup.setHeight(keyBoardHeight + 100);
+                    popup.showAtBottom();
+                }
+            }
+
+            @Override
+            public void onKeyboardClose() {
+                if (popup.isShowing())
+                    popup.dismiss();
+            }
+
+
+        });
+
+        etEmoji.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                if(!b) {
+                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+
+                }
+            }
+        });
+
+
+
+        popup.setOnEmojiconClickedListener(new EmojiGridView.OnEmojiconClickedListener() {
+
+            @Override
+            public void onEmojiconClicked(Emojicon emojicon) {
+                if (emojicon == null) {
+                    return;
+                }
+                etEmoji.setText(emojicon.getEmoji());
+                inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+
+
+            }
+        });
+
+        popup.setOnEmojiconBackspaceClickedListener(new EmojiPopup.OnEmojiconBackspaceClickedListener() {
+
+            @Override
+            public void onEmojiconBackspaceClicked(View v) {
+                etEmoji.setText("");
+                inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+            }
+        });
+
+
+        etEmoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(popup.isShowing()){
+                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+
+                }else {
+
+                    inputMethodManager.showSoftInput(etEmoji, InputMethodManager.SHOW_IMPLICIT);
+
+                }
+            }
+        });
+
+    }
+
 
 }

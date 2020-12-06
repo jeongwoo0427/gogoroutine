@@ -3,21 +3,26 @@ package com.example.gogoroutine.activity_taskmanager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 
 import com.example.gogoroutine.R;
-import com.example.gogoroutine.activity_routinemanager.AddTaskDialog.TaskAddDialog;
 import com.example.gogoroutine.others.RoutineTaskDAO;
 import com.example.gogoroutine.others.RoutineTaskDO;
 import com.example.gogoroutine.others.TaskDAO;
 import com.example.gogoroutine.others.TaskDO;
+import com.github.data5tream.emojilib.EmojiGridView;
+import com.github.data5tream.emojilib.EmojiPopup;
+import com.github.data5tream.emojilib.emoji.Emojicon;
+
 
 public class ActivityTaskManager extends AppCompatActivity {
 
@@ -37,6 +42,12 @@ public class ActivityTaskManager extends AppCompatActivity {
     int category = 2;
 
 
+    View rootView;
+    EmojiPopup popup;
+    InputMethodManager inputMethodManager;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +59,7 @@ public class ActivityTaskManager extends AppCompatActivity {
         routineTaskDAO = new RoutineTaskDAO(this);
 
         ViewSetting();
+        EmojiKeyboardSetting();
 
         //새글
         if (mode == 1) {
@@ -95,6 +107,8 @@ public class ActivityTaskManager extends AppCompatActivity {
         npMinute.setMaxValue(59);
         npSecond.setMinValue(0);
         npSecond.setMaxValue(59);
+
+
 
 
         ivDelete.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +185,90 @@ public class ActivityTaskManager extends AppCompatActivity {
 
 
     }
+
+    private void EmojiKeyboardSetting(){
+        rootView = findViewById(R.id.taskmanager_root);
+        popup = new EmojiPopup(rootView, ActivityTaskManager.this, getResources().getColor(R.color.colorAccent));
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        popup.setSizeForSoftKeyboard();
+
+
+        popup.setOnSoftKeyboardOpenCloseListener(new EmojiPopup.OnSoftKeyboardOpenCloseListener() {
+
+            @Override
+            public void onKeyboardOpen(int keyBoardHeight) {
+
+                if(etEmoji.isFocused()) {
+                    popup.setHeight(keyBoardHeight + 100);
+                    popup.showAtBottom();
+                }
+            }
+
+            @Override
+            public void onKeyboardClose() {
+                if (popup.isShowing())
+                    popup.dismiss();
+            }
+
+
+        });
+
+        etEmoji.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                if(!b) {
+                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+
+                }
+            }
+        });
+
+
+
+        popup.setOnEmojiconClickedListener(new EmojiGridView.OnEmojiconClickedListener() {
+
+            @Override
+            public void onEmojiconClicked(Emojicon emojicon) {
+                if (emojicon == null) {
+                    return;
+                }
+                etEmoji.setText(emojicon.getEmoji());
+                inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+
+
+            }
+        });
+
+        popup.setOnEmojiconBackspaceClickedListener(new EmojiPopup.OnEmojiconBackspaceClickedListener() {
+
+            @Override
+            public void onEmojiconBackspaceClicked(View v) {
+                etEmoji.setText("");
+                inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+            }
+        });
+
+
+        etEmoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(popup.isShowing()){
+                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+
+                }else {
+
+                    inputMethodManager.showSoftInput(etEmoji, InputMethodManager.SHOW_IMPLICIT);
+
+                }
+            }
+        });
+
+    }
+
+
+
 
     void TaskSave(){
 

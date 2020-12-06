@@ -41,9 +41,10 @@
             android:layout_height="wrap_content"
             android:text="푸쉬업 100회"
             android:layout_below="@id/show_rl1"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorDark"
             android:textAlignment="center"
             android:textStyle="bold"
+            android:fontFamily="sans-serif"
             android:textSize="40dp"/>
 
         <TextView
@@ -55,7 +56,7 @@
             android:textAlignment="center"
             android:layout_marginTop="10dp"
             android:text="한개만 더! 할 수 있잖아!"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorTextGray"
             android:textSize="20dp"/>
 
 

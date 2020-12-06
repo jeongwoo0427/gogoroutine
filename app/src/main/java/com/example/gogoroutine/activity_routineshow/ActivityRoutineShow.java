@@ -361,7 +361,9 @@ public class ActivityRoutineShow extends AppCompatActivity {
 
                 StopCountDownTimer();
                 StopStopWatch();
-                notificationManager.cancelAll();
+                if(notificationManager != null) {
+                    notificationManager.cancelAll();
+                }
                 finish();
 
             }
