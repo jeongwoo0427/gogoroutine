@@ -16,6 +16,7 @@ import com.example.gogoroutine.R;
 import com.example.gogoroutine.fragment_routines.dialog_routinetask.RoutineTaskDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -26,9 +27,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     FragmentRoutines fragmentRoutines;
     ActivityMain activityMain;
 
+
+
     public RecyclerViewAdapter(FragmentRoutines fragmentRoutines, ActivityMain activityMain){
         this.fragmentRoutines = fragmentRoutines;
         this.activityMain = activityMain;
+
+
     }
 
     @NonNull
@@ -50,36 +55,37 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //글자값 적용
         //실제로 아이템에대한 정보를 적용하는 부분
-
-
         RecyclerViewAdapterDO rdo = mData.get(position);
-        holder.tvName.setText(rdo.getName());
-       // holder.tvStartTime.setText(convertTime(rdo.getStartHour(),rdo.getStartMinute())); 업데이트 전까지는 임시로 요일을 표시하도록 함
-        holder.tvStartTime.setText(ConvertWeeks(rdo.getSelectedWeeks()));
-        final int routineNum = rdo.getRoutineNum();
 
-        holder.ivDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            holder.tvName.setText(rdo.getName());
+            // holder.tvStartTime.setText(convertTime(rdo.getStartHour(),rdo.getStartMinute())); 업데이트 전까지는 임시로 요일을 표시하도록 함
+            holder.tvStartTime.setText(ConvertWeeks(rdo.getSelectedWeeks()));
+            final int routineNum = rdo.getRoutineNum();
 
-                FragmentRoutines_ItemDialog dialog = new FragmentRoutines_ItemDialog(parentContext,fragmentRoutines,activityMain);
+            holder.ivDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                dialog.showDialog(routineNum);
+                    FragmentRoutines_ItemDialog dialog = new FragmentRoutines_ItemDialog(parentContext, fragmentRoutines, activityMain);
 
-            }
-        });
+                    dialog.showDialog(routineNum);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                }
+            });
 
-                RoutineTaskDialog dialog = new RoutineTaskDialog(parentContext,fragmentRoutines,activityMain);
-                dialog.ShowDialog(routineNum);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-            }
-        });
+                    RoutineTaskDialog dialog = new RoutineTaskDialog(parentContext, fragmentRoutines, activityMain);
+                    dialog.ShowDialog(routineNum);
 
-    }
+                }
+            });
+        }
+
+
+
 
     @Override
     public int getItemCount() {
