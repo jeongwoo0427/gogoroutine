@@ -84,6 +84,17 @@ public class RoutineTaskDAO {
         db.execSQL(qry);
     }
 
+    public void CloneRoutineTasks(int originalNum, int cloneNum){
+        dbOpenHelper = new DbOpenHelper(context);
+        db = dbOpenHelper.getWritableDatabase();
+
+        String qry = "INSERT INTO routineTask (routineNum,name,hour,minute,second,emoji,summary,taskOrder) " +
+                "SELECT "+cloneNum+",name,hour,minute,second,emoji,summary,taskOrder FROM routineTask WHERE routineNum="+originalNum;
+
+        db.execSQL(qry);
+
+    }
+
 
 
 }

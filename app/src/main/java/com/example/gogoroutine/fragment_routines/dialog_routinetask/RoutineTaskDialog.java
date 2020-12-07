@@ -129,6 +129,17 @@ public class RoutineTaskDialog {
     public String ConvertTimeToString(int hour,int minute,int second){
         String result ="";
 
+        while(second>=60){
+            second -=60;
+            minute ++;
+        }
+
+        while(minute>=60)
+        {
+            minute -=60;
+            hour++;
+        }
+
         if(hour>0){
             result += hour+"시간 ";
         }

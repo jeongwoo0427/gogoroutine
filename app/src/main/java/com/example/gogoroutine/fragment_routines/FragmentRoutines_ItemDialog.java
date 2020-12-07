@@ -18,6 +18,7 @@ import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_routinemanager.ActivityRoutineManager;
 import com.example.gogoroutine.others.RoutineDAO;
 import com.example.gogoroutine.others.RoutineDO;
+import com.example.gogoroutine.others.RoutineTaskDAO;
 
 
 public class FragmentRoutines_ItemDialog {
@@ -108,7 +109,9 @@ public class FragmentRoutines_ItemDialog {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         RoutineDO routineDO = routineDAO.getRoutineDetails(iRoutineNum);
-                        routineDAO.insertNewRoutine(routineDO);
+                        int cloneNum = routineDAO.insertNewRoutine(routineDO);
+
+                        new RoutineTaskDAO(context).CloneRoutineTasks(iRoutineNum,cloneNum);
 
                         parent.DisplayRoutineList();
 
