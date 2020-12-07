@@ -106,7 +106,7 @@ public class TaskAddDialogAdapter extends RecyclerView.Adapter<TaskAddDialogAdap
             result += minute+"분 ";
         }
         if(second>0){
-            result += second+"초";
+            result += second+"초 ";
         }
 
         return result;

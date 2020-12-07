@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -78,6 +79,10 @@ public class ActivityRoutineManager extends AppCompatActivity {
 
 
         viewAutoWorkSetting();//사용자에 의해 번경되는 모습으로 작동
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
+
 
 
         Intent intent = getIntent();

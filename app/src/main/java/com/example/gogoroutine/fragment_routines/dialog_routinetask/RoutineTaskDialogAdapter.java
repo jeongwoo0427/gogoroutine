@@ -49,17 +49,20 @@ public class RoutineTaskDialogAdapter extends RecyclerView.Adapter<RoutineTaskDi
         return list.size();
     }
 
-    public String ConvertTimeToString(int hour,int minute,int second){
-        String result ="";
+    public String ConvertTimeToString(int hour,int minute,int second) {
+        String result = "";
 
-        if(hour>0){
-            result += hour+"시간 ";
+
+        if (hour > 0) {
+                result += hour + "시간 ";
         }
-        if(minute>0){
-            result += minute+"분 ";
+        if (minute > 0) {
+
+                result += minute + "분 ";
+
         }
-        if(second>0){
-            result += second+"초";
+        if (second > 0) {
+            result += second + "초 ";
         }
 
         return result;

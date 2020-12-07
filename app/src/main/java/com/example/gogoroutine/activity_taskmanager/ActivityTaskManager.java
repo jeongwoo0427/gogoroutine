@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,10 @@ public class ActivityTaskManager extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_manager);
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorLight));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Intent intent = getIntent();
         mode = intent.getIntExtra("mode", 1);

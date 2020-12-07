@@ -56,10 +56,8 @@ public class ActivityMain extends AppCompatActivity {
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.FOREGROUND_SERVICE},1);
 
         Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.WHITE);
-
+        window.setStatusBarColor(getResources().getColor(R.color.colorLight));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         btnAdd = (ImageButton)findViewById(R.id.main_btn_add);
         btnAddRoutine = (ImageButton)findViewById(R.id.main_choose_btn_add_routine);

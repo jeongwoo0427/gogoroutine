@@ -141,13 +141,13 @@ public class RoutineTaskDialog {
         }
 
         if(hour>0){
-            result += hour+"시간 ";
+                result += hour+"시간 ";
         }
         if(minute>0){
-            result += minute+"분 ";
+                result += minute +"분 ";
         }
         if(second>0){
-            result += second+"초";
+            result += second+"초 ";
         }
 
         return result;

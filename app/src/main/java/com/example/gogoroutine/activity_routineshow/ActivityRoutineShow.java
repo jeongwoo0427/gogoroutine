@@ -12,17 +12,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.gogoroutine.ActivityComplete;
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.activity_main.ActivityMain;
 import com.example.gogoroutine.others.RoutineTaskDAO;
@@ -77,11 +76,16 @@ public class ActivityRoutineShow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_show);
 
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorLight));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         ViewSetting();
         ListenerStting();
         StopForeGround();
         GetRoutineTasks();
         ApplyCurrentTask(iCurrentIndex);
+        SetStartStop();
     }
 
     private void GetRoutineTasks(){

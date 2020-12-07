@@ -11,7 +11,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     //SQLite 접속을 위한 클래스
 
     final static String DB_NAME = "gogoroutine.db";
-    final static int DB_VERSION = 41;
+    final static int DB_VERSION = 42;
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -37,7 +37,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                     ")";
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO routine(routineNum,name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES(1,'아침루틴',0,9,0,'0',0,0,0)";
+            qry = "INSERT INTO routine(routineNum,name,isNoticeEnable,startHour,startMinute,selectedWeeks,alamMode,isSound,isVibration) VALUES(1,'아침루틴',0,9,0,'1234567',0,0,0)";
             sqLiteDatabase.execSQL(qry);
 
         }

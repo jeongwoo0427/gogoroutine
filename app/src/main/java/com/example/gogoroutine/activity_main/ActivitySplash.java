@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.Window;
 
 import com.example.gogoroutine.R;
 
@@ -15,6 +17,10 @@ public class ActivitySplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorIconBlue));
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -22,6 +28,6 @@ public class ActivitySplash extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },1500);
+        },1000);
     }
 }

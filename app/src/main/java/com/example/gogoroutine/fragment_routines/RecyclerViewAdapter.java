@@ -107,11 +107,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         mData.add(rdo);
 
-
-
     }
-
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -159,6 +155,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         if(weeks.contains("1")){
             convertedWeek +="일 ";
+        }
+
+        if(weeks.contains("1234567")){
+            convertedWeek="매일";
         }
 
         return convertedWeek;
