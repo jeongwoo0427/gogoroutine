@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.gogoroutine",
+  "applicationId": "com.kkumsoft.gogoroutine",
   "variantName": "release",
   "elements": [
     {

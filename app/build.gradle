@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.example.gogoroutine"
+        applicationId "com.kkumsoft.gogoroutine"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
