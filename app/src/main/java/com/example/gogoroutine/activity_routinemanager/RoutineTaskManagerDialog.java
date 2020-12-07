@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 
 import com.example.gogoroutine.R;
@@ -135,35 +136,59 @@ public class RoutineTaskManagerDialog {
 
         popup.setSizeForSoftKeyboard();
 
-
         popup.setOnSoftKeyboardOpenCloseListener(new EmojiPopup.OnSoftKeyboardOpenCloseListener() {
 
             @Override
             public void onKeyboardOpen(int keyBoardHeight) {
 
                 if(etEmoji.isFocused()) {
-                    popup.setHeight(keyBoardHeight + 100);
-                    popup.showAtBottom();
+                    // popup.setHeight(keyBoardHeight + 100);
+                    //popup.showAtBottom();
                 }
             }
 
             @Override
             public void onKeyboardClose() {
-                if (popup.isShowing())
-                    popup.dismiss();
+
+                popup.dismiss();
+
             }
 
 
         });
+
 
         etEmoji.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
 
                 if(!b) {
-                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                    //inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                    popup.dismiss();
+                }else{
+                    //inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                    popup.setWidth(rootView.getWidth());
+
+                    popup.setHeight(rootView.getHeight());
+
+                    popup.showAtBottom();
+
+
+
 
                 }
+            }
+        });
+
+        etEmoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                popup.setWidth(rootView.getWidth());
+
+                popup.setHeight(rootView.getHeight());
+
+                popup.showAtBottom();
             }
         });
 
@@ -178,6 +203,7 @@ public class RoutineTaskManagerDialog {
                 }
                 etEmoji.setText(emojicon.getEmoji());
                 inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                popup.dismiss();
 
 
             }
@@ -191,22 +217,6 @@ public class RoutineTaskManagerDialog {
                 inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
             }
         });
-
-
-        etEmoji.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(popup.isShowing()){
-                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
-
-                }else {
-
-                    inputMethodManager.showSoftInput(etEmoji, InputMethodManager.SHOW_IMPLICIT);
-
-                }
-            }
-        });
-
     }
 
 

@@ -7,13 +7,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.example.gogoroutine.R;
 import com.example.gogoroutine.others.RoutineTaskDAO;
@@ -191,13 +194,15 @@ public class ActivityTaskManager extends AppCompatActivity {
 
     }
 
+
+
     private void EmojiKeyboardSetting(){
         rootView = findViewById(R.id.taskmanager_root);
         popup = new EmojiPopup(rootView, ActivityTaskManager.this, getResources().getColor(R.color.colorAccent));
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        popup.setSizeForSoftKeyboard();
 
+        popup.setSizeForSoftKeyboard();
 
         popup.setOnSoftKeyboardOpenCloseListener(new EmojiPopup.OnSoftKeyboardOpenCloseListener() {
 
@@ -205,28 +210,53 @@ public class ActivityTaskManager extends AppCompatActivity {
             public void onKeyboardOpen(int keyBoardHeight) {
 
                 if(etEmoji.isFocused()) {
-                    popup.setHeight(keyBoardHeight + 100);
-                    popup.showAtBottom();
+                   // popup.setHeight(keyBoardHeight + 100);
+                    //popup.showAtBottom();
                 }
             }
 
             @Override
             public void onKeyboardClose() {
-                if (popup.isShowing())
+
                     popup.dismiss();
+
             }
 
 
         });
+
 
         etEmoji.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
 
                 if(!b) {
-                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                    //inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                    popup.dismiss();
+                }else{
+                    //inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                    popup.setWidth(rootView.getWidth());
+
+                    popup.setHeight(rootView.getHeight());
+
+                    popup.showAtBottom();
+
+
+
 
                 }
+            }
+        });
+
+        etEmoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                popup.setWidth(rootView.getWidth());
+
+                popup.setHeight(rootView.getHeight());
+
+                popup.showAtBottom();
             }
         });
 
@@ -241,6 +271,7 @@ public class ActivityTaskManager extends AppCompatActivity {
                 }
                 etEmoji.setText(emojicon.getEmoji());
                 inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
+                popup.dismiss();
 
 
             }
@@ -252,21 +283,6 @@ public class ActivityTaskManager extends AppCompatActivity {
             public void onEmojiconBackspaceClicked(View v) {
                 etEmoji.setText("");
                 inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
-            }
-        });
-
-
-        etEmoji.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(popup.isShowing()){
-                    inputMethodManager.hideSoftInputFromWindow(etEmoji.getWindowToken(), 0);
-
-                }else {
-
-                    inputMethodManager.showSoftInput(etEmoji, InputMethodManager.SHOW_IMPLICIT);
-
-                }
             }
         });
 

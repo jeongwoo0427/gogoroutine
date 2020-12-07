@@ -11,7 +11,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     //SQLite 접속을 위한 클래스
 
     final static String DB_NAME = "gogoroutine.db";
-    final static int DB_VERSION = 42;
+    final static int DB_VERSION = 100; //릴리즈 이후 절대 건들면 안됨
 
     public DbOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -68,13 +68,22 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (4,'씻기',0,10,0,'\uD83D\uDEBF','다른사람들과 어울리는 장소를 가기전에 항상 자신의 모습을 청결하게 유지할 필요가 있죠!',1)";
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (5,'책상 정리',0,5,0,'\uD83D\uDCDA','책상을 보기좋을 정도로만 정리해 두는게 어때요?',1)";
+            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (5,'책상 정리',0,10,0,'\uD83D\uDCDA','책상을 보기좋을 정도로만 정리해 두는게 어때요?',1)";
             sqLiteDatabase.execSQL(qry);
 
-            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (6,'방 청소',0,10,0,'\uD83E\uDDF9','건장을 좌우하는 것은 환경적 요인이 크답니다. 청결한 방을 만들어 봅시다!',1)";
+            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (6,'방 청소',0,15,0,'\uD83E\uDDF9','건장을 좌우하는 것은 환경적 요인이 크답니다. 청결한 방을 만들어 봅시다!',1)";
             sqLiteDatabase.execSQL(qry);
 
             qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (7,'빨래 하기',0,10,0,'\uD83E\uDDFA','빨래를 합시다!',1)";
+            sqLiteDatabase.execSQL(qry);
+
+            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (8,'차 한잔',0,10,0,'☕','여유로운 일상을 위해 따끈한 차 한잔 해보죠!',1)";
+            sqLiteDatabase.execSQL(qry);
+
+            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (9,'명상',0,10,0,'\uD83E\uDDD8','집중력 증진과 스트레스 관리를 위해 명상을 하도록 해요!',1)";
+            sqLiteDatabase.execSQL(qry);
+
+            qry = "INSERT INTO task(taskNum,name,hour,minute,second,emoji,summary,category) VALUES (10,'달리기',0,30,0,'\uD83C\uDFC3\u200D♀','달리기는 혈액순환에 좋으면서 뇌기능을 크게 증가시킨다고 해요.',1)";
             sqLiteDatabase.execSQL(qry);
 
         }

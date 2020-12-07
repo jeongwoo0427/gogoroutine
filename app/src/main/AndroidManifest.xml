@@ -11,15 +11,18 @@
         android:roundIcon="@mipmap/ic_gogoroutine_round"
         android:supportsRtl="true"
         android:theme="@style/LightTheme">
-        <activity android:name=".activity_main.ActivityTutorial"></activity>
-        <activity android:name=".activity_main.ActivitySplash">
+        <activity android:name=".activity_main.ActivityTutorial"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity_main.ActivitySplash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_routineshow.ActivityComplete" />
+        <activity android:name=".activity_routineshow.ActivityComplete"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".services.UndeadService" />
 
@@ -40,6 +43,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity_main.ActivityMain"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

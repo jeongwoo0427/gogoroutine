@@ -39,6 +39,7 @@ public class ActivityMain extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentRoutines fragmentRountines;
     private FragmentStatus fragmentStatus;
+    private int moveInfo = 1;
 
     private TaskAddDialog taskDialog;
 
@@ -105,12 +106,28 @@ public class ActivityMain extends AppCompatActivity {
             case R.id.main_btn_routines:
                 fragmentTransaction.setCustomAnimations( R.anim.fragment_enter_from_left, R.anim.fragment_exit_to_right,R.anim.fragment_enter_from_right, R.anim.fragment_exit_to_left);
                 fragmentTransaction.replace(R.id.main_fl,fragmentRountines).commitAllowingStateLoss();
+                moveInfo =1;
                 break;
 
             case R.id.main_btn_status:
                 fragmentTransaction.setCustomAnimations(R.anim.fragment_enter_from_right, R.anim.fragment_exit_to_left, R.anim.fragment_enter_from_left, R.anim.fragment_exit_to_right);
-                fragmentTransaction.replace(R.id.main_fl,fragmentStatus).addToBackStack(null).commitAllowingStateLoss(); //뒤로가기 누를 시 이전 이전프래그먼트로 이동하게
+                fragmentTransaction.replace(R.id.main_fl,fragmentStatus).commitAllowingStateLoss(); //뒤로가기 누를 시 이전 이전프래그먼트로 이동하게
+                moveInfo =2;
                 break;
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(moveInfo==1) {
+            super.onBackPressed();
+        }else if(moveInfo == 2){
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations( R.anim.fragment_enter_from_left, R.anim.fragment_exit_to_right,R.anim.fragment_enter_from_right, R.anim.fragment_exit_to_left);
+            fragmentTransaction.replace(R.id.main_fl,fragmentRountines).commitAllowingStateLoss();
+            moveInfo =1;
 
         }
     }
