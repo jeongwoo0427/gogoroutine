@@ -1,7 +1,9 @@
 package com.kkumsoft.gogoroutine.activity_routineshow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.kkumsoft.gogoroutine.R;
+import com.kkumsoft.gogoroutine.activity_main.ActivityMain;
 
 public class ActivityComplete extends AppCompatActivity {
 
@@ -39,9 +42,18 @@ public class ActivityComplete extends AppCompatActivity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ActivityComplete.this, ActivityMain.class);
+                startActivity(intent);
                 finish();
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ActivityComplete.this, ActivityMain.class);
+        startActivity(intent);
+        super.onBackPressed();
     }
 }
